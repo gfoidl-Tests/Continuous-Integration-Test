@@ -1,9 +1,13 @@
+language: csharp
+dist: trusty
+mono: none
+os:
+  - linux
+  - osx
+osx_images: xcode7.1
 git:
   depth: 1
-language: csharp
-mono: none
 dotnet: 1.0.3
-dist: trusty
 before_script:
   - dotnet restore
 script:
