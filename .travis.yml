@@ -1,0 +1,12 @@
+git:
+  depth: 1
+language: csharp
+mono: none
+dotnet: 1.0.3
+dist: trusty
+before_script:
+  - dotnet restore
+script:
+  - dotnet build -c Release
+after_success:
+  - find tests -name *.csproj -exec dotnet test --no-build -c Release {} \;
