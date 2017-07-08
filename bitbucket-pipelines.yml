@@ -1,0 +1,14 @@
+image:
+  name: microsoft/dotnet
+
+clone:
+  depth: 1
+
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
+          - dotnet restore
+          - dotnet build -c Release
+          - find tests -name *.csproj -exec dotnet test --no-build -c Release {} \;
