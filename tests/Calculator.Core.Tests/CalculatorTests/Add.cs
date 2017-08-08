@@ -2,23 +2,23 @@
 
 namespace Calculator.Core.Tests.CalculatorTests
 {
-	[TestFixture]
-	public class Add
-	{
-		[Test]
-		public void Summands_given___correct_result()
-		{
-			// Arrange
-			int a = 3;
-			int b = 4;
+    [TestFixture]
+    public class Add
+    {
+        [Test]
+        public void Summands_given___correct_result()
+        {
+            // Arrange
+            int first  = 3;
+            int second = 4;
 
-			var sut = new Calculator();
+            var sut = new Calculator();
 
-			// Act:
-			int actual = sut.Add(a, b);
+            // Act:
+            int actual = sut.Add(first, second);
 
-			// Assert:
-			Assert.AreEqual(7, actual);
-		}
-	}
+            // Assert:
+            Assert.AreEqual(7, actual);
+        }
+    }
 }
