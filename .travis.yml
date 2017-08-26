@@ -1,18 +1,18 @@
 language: csharp
 dist: trusty
-env:
-  global:
-    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-    - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 mono: none
+dotnet: 2.0.0
+env:
+    global:
+        - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 os:
-  - linux
+    - linux
 git:
-  depth: 1
-dotnet: 1.0.3
+    depth: 1
 before_script:
-  - dotnet restore
+    - dotnet restore
 script:
-  - dotnet build -c Release
+    - dotnet build -c Release --no-restore
 after_success:
-  - find tests -name *.csproj | xargs -n1 dotnet test --no-build -c Release
+    - find tests -name *.csproj | xargs -n1 dotnet test --no-build -c Release
