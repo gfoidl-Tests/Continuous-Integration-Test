@@ -41,5 +41,5 @@ pipelines:
                 - dotnet build -c Release --no-restore
                 - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
                 - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$name"
-                - dotnet nuget push --api-key "$MYGET_KEY" -t 60 ./NuGet-Packed/*.nupkg
+                #- dotnet nuget push --api-key "$MYGET_KEY" -t 60 ./NuGet-Packed/*.nupkg
                 - ls -l ./NuGet-Packed
