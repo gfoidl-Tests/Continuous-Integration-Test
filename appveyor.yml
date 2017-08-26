@@ -1,19 +1,23 @@
-version: 1.0.{build}
+version: 0.1.{build}.0
+pull_requests:
+  do_not_increment_build_number: true
 image: Visual Studio 2017
-configuration: Release
 clone_depth: 1
-
+clone_folder: c:\projects\gfoidl
 environment:
-    global:
-        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-        DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+build_script:
+- cmd: >-
+    dotnet restore
 
-before_build:
-    - cmd: dotnet restore
+    dotnet build -c Release --no-restore
 
-build:
-    parallel: true
-    verbosity: minimal
-
+    dotnet pack -o c:\projects\gfoidl\NuGet-Packed --no-build -c Release source\Calculator.Core
 test_script:
-    - cmd: dotnet test --no-build -c Release tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj
+- cmd: dotnet test -c Release --no-build tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj
+artifacts:
+- path: NuGet-Packed\*.nupkg
+  name: NuGet
+on_finish:
+- cmd: dir .\NuGet-Packed
