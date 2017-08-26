@@ -1,14 +1,45 @@
 image:
-    name: microsoft/dotnet
+    name: microsoft/dotnet:2.0.0-sdk
 
 clone:
     depth: 1
 
 pipelines:
+    tags:
+        v*:
+            - step:
+                script:
+                    - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
+                    - name="Calculator.Core"
+                    - export BuildNumber=$(git log --oneline | wc -l)
+                    - dotnet restore
+                    - dotnet build -c Release --no-restore
+                    - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
+                    - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$name"
+                    - dotnet nuget push --source "$NUGET_FEED" --api-key "$NUGET_KEY" -t 60 ./NuGet-Packed/*.nupkg
+                    - ls -l ./NuGet-Packed
+    branches:
+        master:
+            - step:
+                script:
+                    - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
+                    - name="Calculator.Core"
+                    - export BuildNumber=$(git log --oneline | wc -l)
+                    - dotnet restore
+                    - dotnet build -c Release --no-restore
+                    - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
+                    - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$name"
+                    - ls -l ./NuGet-Packed
     default:
         - step:
             script:
                 - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
+                - name="Calculator.Core"
+                - export BuildNumber=$(git log --oneline | wc -l)
+                - export VersionSuffix="preview-$BITBUCKET_BUILD_NUMBER"
                 - dotnet restore
                 - dotnet build -c Release --no-restore
-                - find tests -name *.csproj | xargs -n1 dotnet test --no-build -c Release
+                - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
+                - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$name"
+                #- dotnet nuget push --api-key "$MYGET_KEY" -t 60 ./NuGet-Packed/*.nupkg
+                - ls -l ./NuGet-Packed
