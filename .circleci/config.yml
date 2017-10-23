@@ -22,12 +22,12 @@ jobs:
             - persist_to_workspace:
                 root: .
                 paths:
-                    - build.sh
                     - source/**/bin
                     - tests/**/bin
     test:
         <<: *defaults
         steps:
+            - checkout
             - attach_workspace:
                 at: .
             - run: chmod ugo+x ./build.sh
