@@ -12,6 +12,21 @@ help() {
 }
 #------------------------------------------------------------------------------
 build() {
+    # ci tools clone usually to depth 50, so this is not good
+    #export BuildNumber=$(git log --oneline | wc -l)
+    export BuildNumber=$CI_BUILD_NUMBER
+    export VersionSuffix="preview-$CI_BUILD_NUMBER"
+
+    if [[ -n "$TAG_NAME" ]]; then
+        if [[ "$TAG_NAME" =~ ^v[0-9]\.[0-9]\.[0-9]$ ]]; then
+            unset VersionSuffix
+        fi
+    fi
+    
+    echo "BuildNumber: $BuildNumber"
+    echo "VersionSuffix: $VersionSuffix"
+    echo ""
+
     dotnet restore
     dotnet build -c Release --no-restore
 }
@@ -44,21 +59,6 @@ deploy() {
 }
 #------------------------------------------------------------------------------
 main() {
-    # ci tools clone usually to depth 50, so this is not good
-    #export BuildNumber=$(git log --oneline | wc -l)
-    export BuildNumber=$CI_BUILD_NUMBER
-    export VersionSuffix="preview-$CI_BUILD_NUMBER"
-
-    if [[ -n "$TAG_NAME" ]]; then
-        if [[ "$TAG_NAME" =~ ^v[0-9]\.[0-9]\.[0-9]$ ]]; then
-            unset VersionSuffix
-        fi
-    fi
-    
-    echo "BuildNumber: $BuildNumber"
-    echo "VersionSuffix: $VersionSuffix"
-    echo ""
-
     case "$1" in
         build)  build
                 ;;
