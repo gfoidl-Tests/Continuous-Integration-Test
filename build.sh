@@ -31,8 +31,38 @@ build() {
     dotnet build -c Release --no-restore
 }
 #------------------------------------------------------------------------------
+testCore() {
+    local testFullName
+    local testDir
+    local testName
+    local testResultName
+
+    testFullName="$1"
+    testDir=$(dirname "$testFullName")
+    testName=$(basename "$testFullName")
+    testResultName="$testName-$(date +%s).trx"
+
+    echo ""
+    echo "test fullname:    $testFullName"
+    echo "testing:          $testName..."
+    echo "test result name: $testResultName"
+    echo ""
+    
+    dotnet test -c Release --no-build --logger "trx;LogFileName=$testResultName" "$testFullName"
+
+    local result=$?
+
+    mkdir -p "./tests/TestResults"
+    mv "$testDir/TestResults/$testResultName" "./tests/TestResults/$testResultName"
+
+    if [[ $result != 0 ]]; then
+        exit $result
+    fi
+}
+#------------------------------------------------------------------------------
 test() {
-    find tests -name "*.csproj" | xargs -n1 dotnet test -c Release --no-build
+    export -f testCore
+    find tests -name "*.csproj" -print0 | xargs -0 -n1 bash -c 'testCore "$@"' _
 }
 #------------------------------------------------------------------------------
 deployCore() {
@@ -71,7 +101,7 @@ main() {
     esac
 }
 #------------------------------------------------------------------------------
-if [[ $# < 1 ]]; then
+if [[ $# -lt 1 ]]; then
     help
     exit 1
 fi
