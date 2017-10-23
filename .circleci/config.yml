@@ -7,7 +7,7 @@ defaults: &defaults
             DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
             DOTNET_CLI_TELEMETRY_OPTOUT: 1
 jobs:
-    build:
+    build_and_test:
         <<: *defaults
         steps:
             - checkout
@@ -19,22 +19,14 @@ jobs:
                     export BRANCH_NAME=$CIRCLE_BRANCH
                     export TAG_NAME=$CIRCLE_TAG
                     ./build.sh build
+            - run:
+                name: test
+                command: ./build.sh test
             - persist_to_workspace:
                 root: .
                 paths:
                     - source/**/bin
                     - tests/**/bin
-    test:
-        <<: *defaults
-        steps:
-            - checkout
-            - attach_workspace:
-                at: .
-            - run:
-                name: test
-                command: |
-                    chmod ugo+x ./build.sh
-                    ./build.sh test
             - store_test_results:
                 path: tests/TestResults
     deploy_nuget:
@@ -60,21 +52,15 @@ jobs:
         
 workflows:
     version: 2
-    build_and_test:
+    build_test_deploy:
         jobs:
-            - build:
-                filters:
-                    tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9]$/
-            - test:
-                requires:
-                    - build
+            - build_and_test:
                 filters:
                     tags:
                         only: /^v[0-9]\.[0-9]\.[0-9]$/
             - deploy_nuget:
                 requires:
-                    - test
+                    - build_and_test
                 filters:
                     branches:
                         ignore: /.*/
@@ -83,7 +69,7 @@ workflows:
                 context: org-global
             - deploy_myget:
                 requires:
-                    - test
+                    - build_and_test
                 filters:
                     branches:
                         only: master
