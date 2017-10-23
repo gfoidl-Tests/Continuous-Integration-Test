@@ -20,5 +20,18 @@ namespace Calculator.Core.Tests.CalculatorTests
             // Assert:
             Assert.AreEqual(7, actual);
         }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Summand_and_0___summand_returned()
+        {
+            int first  = 42;
+            int second = 0;
+
+            var sut = new Calculator();
+
+            int actual = sut.Add(first, second);
+
+            Assert.AreEqual(first, actual);
+        }
     }
 }

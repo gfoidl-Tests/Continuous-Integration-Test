@@ -28,6 +28,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Core.Tests", "tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj", "{3FF52F2C-352B-4E7A-9CE3-4EC1133166C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{79A13352-2C36-47DB-90E0-AF6EE44B4329}"
+    ProjectSection(SolutionItems) = preProject
+        .circleci\config.yml = .circleci\config.yml
+    EndProjectSection
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
