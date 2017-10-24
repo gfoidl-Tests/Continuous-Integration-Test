@@ -120,8 +120,16 @@ _testCore() {
 }
 #------------------------------------------------------------------------------
 test() {
+    local testDir
+    testDir="./tests"
+
+    if [[ ! -d "$testDir" ]]; then
+        echo "test-directory not existing -> no test need to run"
+        return
+    fi
+
     export -f _testCore
-    find tests -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
+    find "$testDir" -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
 }
 #------------------------------------------------------------------------------
 _deployCore() {
