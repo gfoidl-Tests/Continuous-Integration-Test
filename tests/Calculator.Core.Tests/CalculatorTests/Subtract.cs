@@ -18,7 +18,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             int actual = sut.Subtract(first, second);
 
             // Assert:
-            Assert.AreEqual(2, actual);
+            Assert.AreEqual(1, actual);
         }
         //---------------------------------------------------------------------
         [Test, Ignore("for demo purposes")]
