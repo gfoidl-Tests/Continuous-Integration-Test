@@ -8,11 +8,14 @@ env:
         - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 os:
     - linux
+    - osx
+osx_image: xcode8.2
 git:
-    depth: 1
+    depth: 3
 before_script:
-    - dotnet restore
+    - chmod ugo+x ./build.sh
 script:
-    - dotnet build -c Release --no-restore
+    - ./build.sh build
+    - ./build.sh test
 after_success:
-    - find tests -name *.csproj | xargs -n1 dotnet test --no-build -c Release
+    - ./build.sh deploy myget

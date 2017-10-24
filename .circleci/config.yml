@@ -15,9 +15,6 @@ jobs:
                 name: build
                 command: |
                     chmod ugo+x ./build.sh
-                    export CI_BUILD_NUMBER=$CIRCLE_BUILD_NUM
-                    export BRANCH_NAME=$CIRCLE_BRANCH
-                    export TAG_NAME=$CIRCLE_TAG
                     ./build.sh build
             - run:
                 name: test
@@ -47,9 +44,6 @@ jobs:
                 name: deploy to NuGet
                 command: |
                     chmod ugo+x ./build.sh
-                    export CI_BUILD_NUMBER=$CIRCLE_BUILD_NUM
-                    export BRANCH_NAME=$CIRCLE_BRANCH
-                    export TAG_NAME=$CIRCLE_TAG
                     ./build.sh deploy nuget
     deploy_myget:
         <<: *defaults
@@ -61,9 +55,6 @@ jobs:
                 name: deploy to MyGet
                 command: |
                     chmod ugo+x ./build.sh
-                    export CI_BUILD_NUMBER=$CIRCLE_BUILD_NUM
-                    export BRANCH_NAME=$CIRCLE_BRANCH
-                    export TAG_NAME=$CIRCLE_TAG
                     ./build.sh deploy myget
         
 workflows:

@@ -12,6 +12,28 @@ help() {
 }
 #------------------------------------------------------------------------------
 setBuildEnv() {
+    if [[ -z "$NAME" ]]; then
+        echo "NAME environment variable must be set to project-name (for packaging)"
+        exit 1
+    fi
+
+    if [[ -z "$CI_BUILD_NUMBER" ]]; then
+        if [[ -n "$CIRCLECI" ]]; then
+            export CI_BUILD_NUMBER=$CIRCLE_BUILD_NUM
+            export BRANCH_NAME=$CIRCLE_BRANCH
+            export TAG_NAME=$CIRCLE_TAG
+        elif [[ -n "$TRAVIS" ]]; then
+            export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
+            export BRANCH_NAME=$(if [[ -n "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then echo "$TRAVIS_PULL_REQUEST_BRANCH"; else echo "$TRAVIS_BRANCH"; fi)
+            export TAG_NAME=$TRAVIS_TAG
+        elif [[ -n "$BITBUCKET_BUILD_NUMBER" ]]; then
+            export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+            export BRANCH_NAME=$BITBUCKET_BRANCH
+            export TAG_NAME=$BITBUCKET_TAG
+        fi
+    fi
+
+    # BuildNumber is used by MsBuild for version information.
     # ci tools clone usually to depth 50, so this is not good
     #export BuildNumber=$(git log --oneline | wc -l)
     export BuildNumber=$CI_BUILD_NUMBER
@@ -23,14 +45,15 @@ setBuildEnv() {
         fi
     fi
     
-    echo "BuildNumber: $BuildNumber"
+    echo "-------------------------------------------------"
+    echo "Branch:        $BRANCH_NAME"
+    echo "Tag:           $TAG_NAME"
+    echo "BuildNumber:   $BuildNumber"
     echo "VersionSuffix: $VersionSuffix"
-    echo ""
+    echo "-------------------------------------------------"
 }
 #------------------------------------------------------------------------------
 build() {
-    setBuildEnv
-
     dotnet restore
     dotnet build -c Release --no-restore
 }
@@ -70,8 +93,6 @@ test() {
 }
 #------------------------------------------------------------------------------
 deployCore() {
-    setBuildEnv
-
     dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
 
     ls -l ./NuGet-Packed
@@ -85,6 +106,11 @@ deployCore() {
 }
 #------------------------------------------------------------------------------
 deploy() {
+    if [[ -n "$CI_SKIP_DEPLOY" ]]; then
+        echo "Skipping deploy because CI_SKIP_DEPLOY is set"
+        return
+    fi
+
     if [[ "$1" == "nuget" ]]; then
         deployCore "$NUGET_FEED" "$NUGET_KEY"
     elif [[ "$1" == "myget" ]]; then
@@ -96,6 +122,8 @@ deploy() {
 }
 #------------------------------------------------------------------------------
 main() {
+    setBuildEnv
+
     case "$1" in
         build)  build
                 ;;

@@ -14,9 +14,6 @@ pipelines:
             - step:
                 script:
                     - chmod ugo+x ./build.sh
-                    - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-                    - export BRANCH_NAME=$BITBUCKET_BRANCH
-                    - export TAG_NAME=$BITBUCKET_TAG
                     - ./build.sh build
                     - ./build.sh test
                     #- ./build.sh deploy nuget
@@ -25,9 +22,6 @@ pipelines:
             - step:
                 script:
                     - chmod ugo+x ./build.sh
-                    - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-                    - export BRANCH_NAME=$BITBUCKET_BRANCH
-                    - export TAG_NAME=$BITBUCKET_TAG
                     - ./build.sh build
                     - ./build.sh test
                     #- ./build.sh deploy myget
@@ -35,8 +29,5 @@ pipelines:
         - step:
             script:
                 - chmod ugo+x ./build.sh
-                - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-                - export BRANCH_NAME=$BITBUCKET_BRANCH
-                - export TAG_NAME=$BITBUCKET_TAG
                 - ./build.sh build
                 - ./build.sh test
