@@ -11,7 +11,7 @@ help() {
     echo "  deploy [nuget|myget]   deploys to the destination"
 }
 #------------------------------------------------------------------------------
-build() {
+setBuildEnv() {
     # ci tools clone usually to depth 50, so this is not good
     #export BuildNumber=$(git log --oneline | wc -l)
     export BuildNumber=$CI_BUILD_NUMBER
@@ -26,6 +26,10 @@ build() {
     echo "BuildNumber: $BuildNumber"
     echo "VersionSuffix: $VersionSuffix"
     echo ""
+}
+#------------------------------------------------------------------------------
+build() {
+    setBuildEnv
 
     dotnet restore
     dotnet build -c Release --no-restore
@@ -66,15 +70,18 @@ test() {
 }
 #------------------------------------------------------------------------------
 deployCore() {
+    setBuildEnv
+
     dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
-    
+
+    ls -l ./NuGet-Packed
+    echo ""
+
     if [[ -z "$DEBUG" ]]; then
         dotnet nuget push --source "$1" --api-key "$2" -t 60 ./NuGet-Packed/*.nupkg
     else
         echo "DEBUG: simulate nuget push to $1"
     fi
-
-    ls -l ./NuGet-Packed    
 }
 #------------------------------------------------------------------------------
 deploy() {
@@ -83,7 +90,7 @@ deploy() {
     elif [[ "$1" == "myget" ]]; then
         deployCore "$MYGET_FEED" "$MYGET_KEY"
     else
-        echo "Unknows deploy target '$1', aborting"
+        echo "Unknown deploy target '$1', aborting"
         exit 1
     fi
 }
@@ -96,7 +103,11 @@ main() {
                 ;;
         deploy)
                 shift
-                deploy "$2"
+                deploy "$1"
+                ;;
+        *)
+                help
+                exit
                 ;;
     esac
 }
@@ -106,4 +117,4 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-main "$*"
+main $*
