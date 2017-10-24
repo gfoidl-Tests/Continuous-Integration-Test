@@ -24,6 +24,7 @@
 #   setBuildEnv         sets the environment variables regarding the build-environment
 #   test                runs tests for projects in ./tests
 #   _deployCore         helper -- used by deploy
+#   _pack               helper -- used by deploy
 #   _testCore           helper -- used by test
 #
 # Exit-codes:
@@ -132,14 +133,16 @@ test() {
     find "$testDir" -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
 }
 #------------------------------------------------------------------------------
-_deployCore() {
-    dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
+_pack() {
+    find source -name "*.csproj" -print0 | xargs -0 -n1 dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release
 
     ls -l ./NuGet-Packed
     echo ""
-
+}
+#------------------------------------------------------------------------------
+_deployCore() {
     if [[ -z "$DEBUG" ]]; then
-        dotnet nuget push --source "$1" --api-key "$2" -t 60 ./NuGet-Packed/*.nupkg
+        find "$(pwd)/NuGet-Packed" -name "*.nupkg" -print0 | xargs -0 -n1 dotnet nuget push --source "$1" --api-key "$2" -t 60
     else
         echo "DEBUG: simulate nuget push to $1"
     fi
@@ -150,6 +153,8 @@ deploy() {
         echo "Skipping deploy because CI_SKIP_DEPLOY is set"
         return
     fi
+
+    _pack
 
     if [[ "$1" == "nuget" ]]; then
         _deployCore "$NUGET_FEED" "$NUGET_KEY"
