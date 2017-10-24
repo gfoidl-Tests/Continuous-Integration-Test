@@ -1,4 +1,36 @@
 #!/bin/bash
+#
+## CI build script for projects based on gfoidl's schema.
+#
+# Arguments:
+#   build               builds the solution
+#   test                runs all tests under ./tests
+#   deploy              deploys to $2, which must be either nuget or myget
+#                       * when CI_SKIP_DEPLOY is set, no deploy is done
+#                       * when DEBUG is set, the action is echoed and not done
+#
+# Environment-Variables:
+#   NAME                project-name used for packaging
+#   CI_BUILD_NUMBER     build-number used for version-info
+#   BRANCH_NAME         branch the commit is on
+#   TAG_NAME            tag the commit is on
+#   CI_SKIP_DEPLOY      when set no deploy is done, even if deploy is called
+#   DEBUG               when set deploy is simulted by echoing the action
+#
+# Functions (sorted alphabetically):
+#   build               builds the solution
+#   deploy              deploys the solution either to nuget or myget
+#   main                entry-point
+#   setBuildEnv         sets the environment variables regarding the build-environment
+#   test                runs tests for projects in ./tests
+#   _deployCore         helper -- used by deploy
+#   _testCore           helper -- used by test
+#
+# Exit-codes:
+#   1000                NAME environment variable is not set to project-name (for packaging)
+#   1001                deploy target is neither 'nuget' nor 'myget', so it is unknown
+#   1002                no args given for script, help is displayed and exited
+#   $?                  exit-code for build-step is returned unmodified
 #------------------------------------------------------------------------------
 set -e
 #------------------------------------------------------------------------------
@@ -14,7 +46,7 @@ help() {
 setBuildEnv() {
     if [[ -z "$NAME" ]]; then
         echo "NAME environment variable must be set to project-name (for packaging)"
-        exit 1
+        exit 1000
     fi
 
     if [[ -z "$CI_BUILD_NUMBER" ]]; then
@@ -58,7 +90,7 @@ build() {
     dotnet build -c Release --no-restore
 }
 #------------------------------------------------------------------------------
-testCore() {
+_testCore() {
     local testFullName
     local testDir
     local testName
@@ -88,11 +120,11 @@ testCore() {
 }
 #------------------------------------------------------------------------------
 test() {
-    export -f testCore
-    find tests -name "*.csproj" -print0 | xargs -0 -n1 bash -c 'testCore "$@"' _
+    export -f _testCore
+    find tests -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
 }
 #------------------------------------------------------------------------------
-deployCore() {
+_deployCore() {
     dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
 
     ls -l ./NuGet-Packed
@@ -112,12 +144,12 @@ deploy() {
     fi
 
     if [[ "$1" == "nuget" ]]; then
-        deployCore "$NUGET_FEED" "$NUGET_KEY"
+        _deployCore "$NUGET_FEED" "$NUGET_KEY"
     elif [[ "$1" == "myget" ]]; then
-        deployCore "$MYGET_FEED" "$MYGET_KEY"
+        _deployCore "$MYGET_FEED" "$MYGET_KEY"
     else
         echo "Unknown deploy target '$1', aborting"
-        exit 1
+        exit 1001
     fi
 }
 #------------------------------------------------------------------------------
@@ -142,7 +174,7 @@ main() {
 #------------------------------------------------------------------------------
 if [[ $# -lt 1 ]]; then
     help
-    exit 1
+    exit 1002
 fi
 
 main $*
