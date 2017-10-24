@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D9E029F3-32FB-4C7E-B860-D44C72D0B889}"
     ProjectSection(SolutionItems) = preProject
         .travis.yml = .travis.yml
         appveyor.yml = appveyor.yml
         bitbucket-pipelines.yml = bitbucket-pipelines.yml
+        build.sh = build.sh
         Directory.Build.props = Directory.Build.props
     EndProjectSection
 EndProject
@@ -25,6 +26,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7CB48037-B8E6-4D89-8788-E145958CE8CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Core.Tests", "tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj", "{3FF52F2C-352B-4E7A-9CE3-4EC1133166C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{79A13352-2C36-47DB-90E0-AF6EE44B4329}"
+    ProjectSection(SolutionItems) = preProject
+        .circleci\config.yml = .circleci\config.yml
+    EndProjectSection
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +53,7 @@ Global
     GlobalSection(NestedProjects) = preSolution
         {7035F06C-2152-4C89-9734-88E8A4D4B6A7} = {CD652199-FC50-4643-A3A6-27A82EB729E8}
         {3FF52F2C-352B-4E7A-9CE3-4EC1133166C2} = {7CB48037-B8E6-4D89-8788-E145958CE8CF}
+        {79A13352-2C36-47DB-90E0-AF6EE44B4329} = {D9E029F3-32FB-4C7E-B860-D44C72D0B889}
     EndGlobalSection
     GlobalSection(ExtensibilityGlobals) = postSolution
         SolutionGuid = {7243B696-0018-41B8-8842-74C7046CB05C}
