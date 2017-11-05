@@ -15,7 +15,18 @@ build_script:
 
     dotnet pack -o c:\projects\gfoidl\NuGet-Packed --no-build -c Release source\Calculator.Core
 test_script:
-- cmd: dotnet test -c Release --no-build tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj
+- ps: >-
+    dotnet test -c Release --no-build --logger "trx;LogFileName=testresult.xml" tests\Calculator.Core.Tests\Calculator.Core.Tests.csproj
+
+    $testExit = $lastExitCode
+
+    $wc = New-Object 'System.Net.WebClient'
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", "C:\projects\gfoidl\tests\Calculator.Core.Tests\TestResults\testresult.xml")
+
+    if ($testExit) {
+      exit 1;
+    }
 artifacts:
 - path: NuGet-Packed\*.nupkg
   name: NuGet
