@@ -16,6 +16,7 @@
 #   TAG_NAME            tag the commit is on
 #   CI_SKIP_DEPLOY      when set no deploy is done, even if deploy is called
 #   DEBUG               when set deploy is simulted by echoing the action
+#   TEST_FRAMEWORK      when set only the specified test-framework (dotnet test -f) will be used
 #
 # Functions (sorted alphabetically):
 #   build               builds the solution
@@ -96,19 +97,26 @@ _testCore() {
     local testDir
     local testName
     local testResultName
+    local dotnetTestArgs
 
     testFullName="$1"
     testDir=$(dirname "$testFullName")
     testName=$(basename "$testFullName")
     testResultName="$testName-$(date +%s).trx"
+    dotnetTestArgs="-c Release --no-build --logger \"trx;LogFileName=$testResultName\" $testFullName"
 
     echo ""
+    echo "test framework:   ${TEST_FRAMEWORK-not specified}"
     echo "test fullname:    $testFullName"
     echo "testing:          $testName..."
     echo "test result name: $testResultName"
     echo ""
+
+    if [[ -n "$TEST_FRAMEWORK" ]]; then
+        dotnetTestArgs="-f $TEST_FRAMEWORK $dotnetTestArgs"
+    fi
     
-    dotnet test -c Release --no-build --logger "trx;LogFileName=$testResultName" "$testFullName"
+    dotnet test $dotnetTestArgs
 
     local result=$?
 
