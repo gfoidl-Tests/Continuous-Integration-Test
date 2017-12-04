@@ -1,4 +1,5 @@
 ﻿<Project>
+    
     <PropertyGroup>
         <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
         <VersionMinor Condition="'$(VersionMinor)' == ''">2</VersionMinor>
@@ -17,4 +18,5 @@
         <Message Importance="high" Text="$(MSBuildProjectName) BuildNumber: $(BuildNumber) --> Version: $(Version), AssemblyVersion: $(AssemblyVersion)" />
         <Message Importance="high" Text=" " Condition="'$(Configuration)' == 'Debug'" />
     </Target>
+
 </Project>
