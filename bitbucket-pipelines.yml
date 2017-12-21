@@ -16,6 +16,12 @@ pipelines:
                     - chmod ugo+x ./build.sh
                     - ./build.sh build
                     - ./build.sh test
+                    - |
+                        if [[ -d "tests/TestResults" ]]; then
+                            find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
+                            rm tests/TestResults/*.trx
+                            mv tests/TestResults tests/test-results
+                        fi
                     #- ./build.sh deploy nuget
     branches:
         master:
@@ -24,6 +30,12 @@ pipelines:
                     - chmod ugo+x ./build.sh
                     - ./build.sh build
                     - ./build.sh test
+                    - |
+                        if [[ -d "tests/TestResults" ]]; then
+                            find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
+                            rm tests/TestResults/*.trx
+                            mv tests/TestResults tests/test-results
+                        fi
                     #- ./build.sh deploy myget
     default:
         - step:
@@ -31,3 +43,9 @@ pipelines:
                 - chmod ugo+x ./build.sh
                 - ./build.sh build
                 - ./build.sh test
+                - |
+                    if [[ -d "tests/TestResults" ]]; then
+                        find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
+                        rm tests/TestResults/*.trx
+                        mv tests/TestResults tests/test-results
+                    fi
