@@ -71,11 +71,10 @@ setBuildEnv() {
     # ci tools clone usually to depth 50, so this is not good
     #export BuildNumber=$(git log --oneline | wc -l)
     export BuildNumber=$CI_BUILD_NUMBER
-    export VersionSuffix="preview-$CI_BUILD_NUMBER"
-
+    
     if [[ -n "$TAG_NAME" ]]; then
-        if [[ "$TAG_NAME" =~ ^v[0-9]\.[0-9]\.[0-9]$ ]]; then
-            unset VersionSuffix
+        if [[ "$TAG_NAME" =~ ^v([0-9]\.[0-9]\.[0-9])-(preview-[0-9]+)$ ]]; then
+            export VersionSuffix="${BASH_REMATCH[2]}"
         fi
     fi
     
