@@ -83,5 +83,5 @@ workflows:
                         #only: master
                         ignore: /.*/
                     tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9]-preview-[0-9]+$/
+                        only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
                 context: org-global
