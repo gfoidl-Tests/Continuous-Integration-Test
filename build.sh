@@ -73,8 +73,11 @@ setBuildEnv() {
     export BuildNumber=$CI_BUILD_NUMBER
     
     if [[ -n "$TAG_NAME" ]]; then
-        if [[ "$TAG_NAME" =~ ^v([0-9]\.[0-9]\.[0-9])-(preview-[0-9]+)$ ]]; then
-            export VersionSuffix="${BASH_REMATCH[2]}"
+        if [[ "$TAG_NAME" =~ ^v([0-9])\.([0-9])\.([0-9])(-(preview-[0-9]+))?$ ]]; then
+            export VersionMajor="${BASH_REMATCH[1]}"
+            export VersionMinor="${BASH_REMATCH[2]}"
+            export VersionPatch="${BASH_REMATCH[3]}"
+            export VersionSuffix="${BASH_REMATCH[5]}"
         fi
     fi
     
