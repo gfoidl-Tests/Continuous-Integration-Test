@@ -13,6 +13,10 @@
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
     </PropertyGroup>
+    
+    <PropertyGroup>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-packed</PackageOutputPath>
+    </PropertyGroup>
 
     <Target Name="VersionInfo" BeforeTargets="BeforeBuild">
         <Message Importance="high" Text="$(MSBuildProjectName) BuildNumber: $(BuildNumber) --> Version: $(Version), AssemblyVersion: $(AssemblyVersion)" />
