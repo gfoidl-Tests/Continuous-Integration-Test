@@ -35,6 +35,7 @@ jobs:
                 path: tests/TestResults
             - store_artifacts:
                 path: tests/TestResults
+                destination: TestResults
     deploy_nuget:
         <<: *defaults
         steps:
