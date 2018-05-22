@@ -8,4 +8,8 @@
         <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="NunitXml.TestLogger" Version="1.1.0" Condition="'$(CIRCLECI)' == '1'" />
+    </ItemGroup>
+
 </Project>

@@ -18,14 +18,6 @@ jobs:
             - run:
                 name: test
                 command: ./build.sh test
-            - run:
-                name: test results
-                command: |
-                    if [[ -d "tests/TestResults" ]]; then
-                        find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
-                        rm tests/TestResults/*.trx
-                    fi
-                when: always
             - persist_to_workspace:
                 root: .
                 paths:

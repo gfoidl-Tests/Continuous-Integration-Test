@@ -105,7 +105,13 @@ _testCore() {
     testDir=$(dirname "$testFullName")
     testName=$(basename "$testFullName")
     testResultName="$testName-$(date +%s).trx"
-    dotnetTestArgs="-c Release --no-build --logger \"trx;LogFileName=$testResultName\" $testFullName"
+    dotnetTestArgs="-c Release --no-build"
+
+    if [[ -n "$CIRCLECI" ]]; then
+        dotnetTestArgs="--test-adapter-path:. --logger \"trx;LogFileName=$testResultName\" $testFullName"
+    else
+        dotnetTestArgs="--logger \"trx;LogFileName=$testResultName\" $testFullName"
+    fi
 
     echo ""
     echo "test framework:   ${TEST_FRAMEWORK-not specified}"
