@@ -16,8 +16,8 @@ jobs:
                 command: |
                     chmod ugo+x ./build.sh
 
-                    # Exporting the path before installing the tool prevents the message about the PATH
-                    export PATH="$PATH:/root/.dotnet/tools"
+                    # Exporting / sourcing the path before installing the tool prevents the message about the PATH
+                    echo export PATH="$PATH:/root/.dotnet/tools" >> "$BASH_ENV"
                     dotnet tool install -g trx2junit
             - run:
                 name: build
