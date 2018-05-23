@@ -9,13 +9,13 @@
         <Authors>gfoidl</Authors>
         <Company>Foidl Günther</Company>
         <Product>Continuous Integration Test</Product>
-        <Copyright>Copyright © Foidl Günther 2017</Copyright>
+        <Copyright>Copyright © Foidl Günther 2017-2018</Copyright>
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
     </PropertyGroup>
     
     <PropertyGroup>
-        <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-packed</PackageOutputPath>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-Packed</PackageOutputPath>
     </PropertyGroup>
 
     <Target Name="VersionInfo" BeforeTargets="BeforeBuild">

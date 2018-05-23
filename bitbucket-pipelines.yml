@@ -3,49 +3,16 @@
 # NAME   Calculator.Core
 
 image:
-    name: microsoft/dotnet:2.0.5-sdk-2.1.4
+    name: microsoft/dotnet:2.1-sdk
 
 clone:
     depth: 1
 
 pipelines:
-    tags:
-        v*:
-            - step:
-                script:
-                    - chmod ugo+x ./build.sh
-                    - ./build.sh build
-                    - ./build.sh test
-                    - |
-                        if [[ -d "tests/TestResults" ]]; then
-                            find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
-                            rm tests/TestResults/*.trx
-                            mv tests/TestResults tests/test-results
-                        fi
-                    #- ./build.sh deploy nuget
-    branches:
-        master:
-            - step:
-                script:
-                    - chmod ugo+x ./build.sh
-                    - ./build.sh build
-                    - ./build.sh test
-                    - |
-                        if [[ -d "tests/TestResults" ]]; then
-                            find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
-                            rm tests/TestResults/*.trx
-                            mv tests/TestResults tests/test-results
-                        fi
-                    #- ./build.sh deploy myget
     default:
         - step:
             script:
                 - chmod ugo+x ./build.sh
                 - ./build.sh build
                 - ./build.sh test
-                - |
-                    if [[ -d "tests/TestResults" ]]; then
-                        find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
-                        rm tests/TestResults/*.trx
-                        mv tests/TestResults tests/test-results
-                    fi
+                - ./build.sh pack
