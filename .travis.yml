@@ -18,5 +18,6 @@ before_script:
 script:
     - ./build.sh build
     - ./build.sh test
+    - ./build.sh pack
 after_success:
     - ./build.sh deploy myget
