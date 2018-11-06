@@ -18,6 +18,7 @@
 #   CI_SKIP_DEPLOY      when set no deploy is done, even if deploy is called
 #   DEBUG               when set deploy is simulted by echoing the action
 #   TEST_FRAMEWORK      when set only the specified test-framework (dotnet test -f) will be used
+#   TESTS_TO_SKIP       a list of test-projects to skip / ignore, separated by ;
 #
 # Functions (sorted alphabetically):
 #   build               builds the solution
@@ -93,15 +94,29 @@ build() {
 _testCore() {
     local testFullName
     local testDir
+    local testNameWOExtension
     local testName
     local testResultName
     local dotnetTestArgs
+    local testsToSkip
 
     testFullName="$1"
     testDir=$(dirname "$testFullName")
+    testNameWOExtension=$(basename "$testDir")
     testName=$(basename "$testFullName")
     testResultName="$testName-$(date +%s).trx"
     dotnetTestArgs="-c Release --no-build --logger \"trx;LogFileName=$testResultName\" $testFullName"
+
+    if [[ -n "$TESTS_TO_SKIP" ]]; then
+        testsToSkip=(${TESTS_TO_SKIP//;/ })
+
+        for item in "${testsToSkip[@]}"; do
+            if [[ "$testNameWOExtension" == "$item" ]]; then
+                echo ">>> skipping test $testName, as it is set in TESTS_TO_SKIP"
+                return
+            fi
+        done
+    fi
 
     echo ""
     echo "test framework:   ${TEST_FRAMEWORK-not specified}"
