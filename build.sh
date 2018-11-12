@@ -150,9 +150,13 @@ test() {
         return
     fi
 
-    for testProject in "$testDir"/**/*.csproj; do
-        _testCore "$testProject"
-    done
+    export -f _testCore
+    find "$testDir" -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
+
+    # similar, but not so save (i.e. _testCore has to be updated) as the find-variant
+    # for testProject in "$testDir"/**/*.csproj; do
+        # _testCore "$testProject"
+    # done
 }
 #------------------------------------------------------------------------------
 pack() {
