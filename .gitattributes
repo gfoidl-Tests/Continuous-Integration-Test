@@ -52,6 +52,7 @@ Dockerfile          text eol=lf
 *.ashx              filter=tabs2spaces
 *.asax              filter=tabs2spaces
 *.svc               filter=tabs2spaces
+*.vue               filter=tabs2spaces
 
 # Shell files
 *.sh                filter=tabs2spaces
