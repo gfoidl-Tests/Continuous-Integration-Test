@@ -7,8 +7,8 @@ jobs:
       - bash: |
           chmod u+x ./build.sh
           ./build.sh build
-          ./build.sh test
-          ./build.sh pack
+      - bash: ./build.sh test
+      - bash: ./build.sh pack
       - task: PublishTestResults@2
         inputs:
           testRunner: VSTest
@@ -22,8 +22,8 @@ jobs:
       - bash: |
           chmod u+x ./build.sh
           ./build.sh build
-          ./build.sh test
-          ./build.sh pack
+      - bash: ./build.sh test
+      - bash: ./build.sh pack
       - task: PublishTestResults@2
         inputs:
           testRunner: VSTest
@@ -37,8 +37,8 @@ jobs:
       - bash: |
           chmod u+x ./build.sh
           ./build.sh build
-          ./build.sh test
-          ./build.sh pack
+      - bash: ./build.sh test
+      - bash: ./build.sh pack
       - task: PublishTestResults@2
         inputs:
           testRunner: VSTest
