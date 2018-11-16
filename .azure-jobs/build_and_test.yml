@@ -11,8 +11,11 @@ jobs:
       - bash: |
           chmod u+x ./build.sh
           ./build.sh build
+        displayName: build
       - bash: ./build.sh test
+        displayName: test
       - bash: ./build.sh pack
+        displayName: pack
       - task: PublishTestResults@2
         inputs:
           testRunner: VSTest
