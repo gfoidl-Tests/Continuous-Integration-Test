@@ -9,6 +9,10 @@ environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
 build_script:
 - cmd: >-
+    set CI_BUILD_NUMBER=%APPVEYOR_BUILD_NUMBER%
+    set BRANCH_NAME=%APPVEYOR_REPO_BRANCH%
+    set TAG_NAME=%APPVEYOR_REPO_TAG_NAME%
+
     dotnet restore
 
     dotnet build -c Release --no-restore

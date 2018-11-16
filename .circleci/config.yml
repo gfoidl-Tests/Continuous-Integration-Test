@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 defaults: &defaults
     working_directory: ~/repo
     docker:
@@ -6,18 +6,31 @@ defaults: &defaults
           environment:
             DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
             DOTNET_CLI_TELEMETRY_OPTOUT: 1
+commands:
+    set_env:
+        description: "Sets the build environment variables"
+        steps:
+            - run:
+                name: "set build environment"
+                command: |
+                    if [[ -z "$CI_BUILD_NUMBER" ]]; then
+                        echo 'export CI_BUILD_NUMBER="$CIRCLE_BUILD_NUM"' >> "$BASH_ENV"
+                        echo 'export BRANCH_NAME="$CIRCLE_BRANCH"' >> "$BASH_ENV"
+                        echo 'export TAG_NAME="$CIRCLE_TAG"' >> "$BASH_ENV"
+                    fi
+                    
+                    # Exporting / sourcing the path before installing the tool prevents the message about the PATH
+                    echo 'export PATH="$PATH:/root/.dotnet/tools"' >> "$BASH_ENV"
 jobs:
     build_test_pack:
         <<: *defaults
         steps:
             - checkout
+            - set_env
             - run:
                 name: init
                 command: |
                     chmod ugo+x ./build.sh
-
-                    # Exporting / sourcing the path before installing the tool prevents the message about the PATH
-                    echo export PATH="$PATH:/root/.dotnet/tools" >> "$BASH_ENV"
                     dotnet tool install -g trx2junit
             - run:
                 name: build
@@ -49,6 +62,7 @@ jobs:
     deploy_nuget:
         <<: *defaults
         steps:
+            - set_env
             - attach_workspace:
                 at: .
             - run:
@@ -59,6 +73,7 @@ jobs:
     deploy_myget:
         <<: *defaults
         steps:
+            - set_env
             - attach_workspace:
                 at: .
             - run:

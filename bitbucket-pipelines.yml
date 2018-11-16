@@ -12,6 +12,9 @@ pipelines:
     default:
         - step:
             script:
+                - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+                - export BRANCH_NAME=$BITBUCKET_BRANCH
+                - export TAG_NAME=$BITBUCKET_TAG
                 - chmod ugo+x ./build.sh
                 - ./build.sh build
                 - ./build.sh test

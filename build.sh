@@ -48,22 +48,6 @@ help() {
 }
 #------------------------------------------------------------------------------
 setBuildEnv() {
-    if [[ -z "$CI_BUILD_NUMBER" ]]; then
-        if [[ -n "$CIRCLECI" ]]; then
-            export CI_BUILD_NUMBER=$CIRCLE_BUILD_NUM
-            export BRANCH_NAME=$CIRCLE_BRANCH
-            export TAG_NAME=$CIRCLE_TAG
-        elif [[ -n "$TRAVIS" ]]; then
-            export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-            export BRANCH_NAME=$(if [[ -n "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then echo "$TRAVIS_PULL_REQUEST_BRANCH"; else echo "$TRAVIS_BRANCH"; fi)
-            export TAG_NAME=$TRAVIS_TAG
-        elif [[ -n "$BITBUCKET_BUILD_NUMBER" ]]; then
-            export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-            export BRANCH_NAME=$BITBUCKET_BRANCH
-            export TAG_NAME=$BITBUCKET_TAG
-        fi
-    fi
-
     # BuildNumber is used by MsBuild for version information.
     # ci tools clone usually to depth 50, so this is not good
     #export BuildNumber=$(git log --oneline | wc -l)
