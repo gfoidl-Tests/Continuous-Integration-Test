@@ -155,6 +155,7 @@ _deployCore() {
         find "$(pwd)/NuGet-Packed" -name "*.nupkg" -print0 | xargs -0 -n1 dotnet nuget push --source "$1" --api-key "$2" -t 60
     else
         echo "DEBUG: simulate nuget push to $1"
+        find "$(pwd)/NuGet-Packed" -name "*.nupkg" -print0 | xargs -0 -n1 echo "dotnet nuget push"
     fi
 }
 #------------------------------------------------------------------------------
