@@ -1,0 +1,15 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+  #vmImage: 'vs2017-win2016'
+  #vmImage: 'macOS-10.13'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: |
+    chmod u+x ./build.sh
+    ./build.sh build
+    ./build.sh test
+    ./build.sh pack
+  displayName: 'dotnet build and test with $(buildConfiguration)'
