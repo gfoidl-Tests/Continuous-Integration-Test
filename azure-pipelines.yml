@@ -1,15 +1,33 @@
-pool:
-  vmImage: 'ubuntu-16.04'
-  #vmImage: 'vs2017-win2016'
-  #vmImage: 'macOS-10.13'
+jobs:
+- job: linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      chmod u+x ./build.sh
+      ./build.sh build
+      ./build.sh test
+      ./build.sh pack
+  displayName: 'dotnet build and test with $(buildConfiguration)'
 
-variables:
-  buildConfiguration: 'Release'
+- job: windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      chmod u+x ./build.sh
+      ./build.sh build
+      ./build.sh test
+      ./build.sh pack
+  displayName: 'dotnet build and test with $(buildConfiguration)'
 
-steps:
-- script: |
-    chmod u+x ./build.sh
-    ./build.sh build
-    ./build.sh test
-    ./build.sh pack
+- job: mac
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: |
+      chmod u+x ./build.sh
+      ./build.sh build
+      ./build.sh test
+      ./build.sh pack
   displayName: 'dotnet build and test with $(buildConfiguration)'
