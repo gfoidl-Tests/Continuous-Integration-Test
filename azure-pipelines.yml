@@ -1,33 +1,24 @@
+default: &default
+  steps:
+  - bash: |
+      chmod u+x ./build.sh
+      ./build.sh build
+      ./build.sh test
+      ./build.sh pack
+  displayName: "$(Agent.OS) build and test"
+
 jobs:
 - job: linux
   pool:
     vmImage: 'ubuntu-16.04'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'dotnet build and test with $(buildConfiguration)'
+  <<: *default
 
 - job: windows
   pool:
     vmImage: 'vs2017-win2016'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'dotnet build and test with $(buildConfiguration)'
+  <<: *default
 
 - job: mac
   pool:
     vmImage: 'macOS-10.13'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'dotnet build and test with $(buildConfiguration)'
+  <<: *default
