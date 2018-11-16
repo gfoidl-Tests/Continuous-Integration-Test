@@ -20,3 +20,12 @@ jobs:
         inputs:
           testRunner: VSTest
           testResultsFiles: '**/*.trx'
+      - task: CopyFiles@2
+        inputs:
+          sourceFolder: 'NuGet-Packed'
+          contents: '*.nupkg'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: MyBuildOutputs
