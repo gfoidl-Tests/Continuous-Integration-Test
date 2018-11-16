@@ -1,0 +1,19 @@
+parameters:
+  name: ''
+  vmImage: ''
+
+jobs:
+  - job: ${{ parameters.name }}
+    displayName: '${{ parameters.name }} build and test'
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+      - bash: |
+          chmod u+x ./build.sh
+          ./build.sh build
+      - bash: ./build.sh test
+      - bash: ./build.sh pack
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'

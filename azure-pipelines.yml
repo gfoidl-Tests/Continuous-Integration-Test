@@ -1,45 +1,15 @@
 jobs:
-  - job: linux
-    displayName: 'linux build and test'
-    pool:
+  - template: .azure-jobs/build_and_test.yml
+    parameters:
+      name: linux
       vmImage: 'ubuntu-16.04'
-    steps:
-      - bash: |
-          chmod u+x ./build.sh
-          ./build.sh build
-      - bash: ./build.sh test
-      - bash: ./build.sh pack
-      - task: PublishTestResults@2
-        inputs:
-          testRunner: VSTest
-          testResultsFiles: '**/*.trx'
   
-  - job: windows
-    displayName: 'windows build and test'
-    pool:
+  - template: .azure-jobs/build_and_test.yml
+    parameters:
+      name: windows
       vmImage: 'vs2017-win2016'
-    steps:
-      - bash: |
-          chmod u+x ./build.sh
-          ./build.sh build
-      - bash: ./build.sh test
-      - bash: ./build.sh pack
-      - task: PublishTestResults@2
-        inputs:
-          testRunner: VSTest
-          testResultsFiles: '**/*.trx'
   
-  - job: mac
-    displayName: 'mac build and test'
-    pool:
+  - template: .azure-jobs/build_and_test.yml
+    parameters:
+      name: mac
       vmImage: 'macOS-10.13'
-    steps:
-      - bash: |
-          chmod u+x ./build.sh
-          ./build.sh build
-      - bash: ./build.sh test
-      - bash: ./build.sh pack
-      - task: PublishTestResults@2
-        inputs:
-          testRunner: VSTest
-          testResultsFiles: '**/*.trx'
