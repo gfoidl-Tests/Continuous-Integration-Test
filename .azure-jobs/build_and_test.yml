@@ -11,34 +11,20 @@ jobs:
       - bash: |
           chmod u+x ./build.sh
           ./build.sh build
-        displayName: 'build'
-      
+        displayName: build
       - bash: ./build.sh test
-        displayName: 'test'
-      
-      - bash: dotnet test -c Release --no-build --collect "Code Coverage" tests/Calculator.Core.Tests
-        displayName: 'code coverage'
-        condition: eq( variables['Agent.OS'], 'Windows_NT' )
-
+        displayName: test
       - bash: ./build.sh pack
-        displayName: 'pack'
-      
+        displayName: pack
       - task: PublishTestResults@2
         inputs:
           testRunner: VSTest
           testResultsFiles: '**/*.trx'
-      
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          summaryFileLocation: tests/Calculator.Core.Tests\TestResults\**\*.coverage
-        condition: eq( variables['Agent.OS'], 'Windows_NT' )
-
       - task: CopyFiles@2
         inputs:
           sourceFolder: 'NuGet-Packed'
           contents: '*.nupkg'
           targetFolder: $(Build.ArtifactStagingDirectory)
-      
       - task: PublishBuildArtifacts@1
         inputs:
           pathtoPublish: $(Build.ArtifactStagingDirectory)
