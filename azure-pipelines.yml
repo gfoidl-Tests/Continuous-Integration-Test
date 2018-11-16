@@ -1,33 +1,33 @@
 jobs:
-- job: linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'linux build and test'
-
-- job: windows
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'windows build and test'
-
-- job: mac
-  pool:
-    vmImage: 'macOS-10.13'
-  steps:
-  - bash: |
-      chmod u+x ./build.sh
-      ./build.sh build
-      ./build.sh test
-      ./build.sh pack
-  displayName: 'mac build and test'
+  - job: linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - bash: |
+          chmod u+x ./build.sh
+          ./build.sh build
+          ./build.sh test
+          ./build.sh pack
+    displayName: 'linux build and test'
+  
+  - job: windows
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      - bash: |
+          chmod u+x ./build.sh
+          ./build.sh build
+          ./build.sh test
+          ./build.sh pack
+    displayName: 'windows build and test'
+  
+  - job: mac
+    pool:
+      vmImage: 'macOS-10.13'
+    steps:
+      - bash: |
+          chmod u+x ./build.sh
+          ./build.sh build
+          ./build.sh test
+          ./build.sh pack
+    displayName: 'mac build and test'
