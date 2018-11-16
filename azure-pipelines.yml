@@ -1,5 +1,6 @@
 jobs:
   - job: linux
+    displayName: 'linux build and test'
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
@@ -8,9 +9,13 @@ jobs:
           ./build.sh build
           ./build.sh test
           ./build.sh pack
-    displayName: 'linux build and test'
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
   
   - job: windows
+    displayName: 'windows build and test'
     pool:
       vmImage: 'vs2017-win2016'
     steps:
@@ -19,9 +24,13 @@ jobs:
           ./build.sh build
           ./build.sh test
           ./build.sh pack
-    displayName: 'windows build and test'
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
   
   - job: mac
+    displayName: 'mac build and test'
     pool:
       vmImage: 'macOS-10.13'
     steps:
@@ -30,4 +39,7 @@ jobs:
           ./build.sh build
           ./build.sh test
           ./build.sh pack
-    displayName: 'mac build and test'
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
