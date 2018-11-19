@@ -1,4 +1,5 @@
 version: 2.1
+
 defaults: &defaults
     working_directory: ~/repo
     docker:
@@ -6,6 +7,7 @@ defaults: &defaults
           environment:
             DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
             DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
 commands:
     set_env:
         description: "Sets the build environment variables"
@@ -18,12 +20,17 @@ commands:
                         echo 'export BRANCH_NAME="$CIRCLE_BRANCH"' >> "$BASH_ENV"
                         echo 'export TAG_NAME="$CIRCLE_TAG"' >> "$BASH_ENV"
                     fi
-                    
+
                     # Exporting / sourcing the path before installing the tool prevents the message about the PATH
                     echo 'export PATH="$PATH:/root/.dotnet/tools"' >> "$BASH_ENV"
-jobs:
-    build_test_pack:
-        <<: *defaults
+
+    # Is as command, so that environment variables can be set
+    build_test:
+        description: "Builds and tests"
+        parameters:
+            debug-build:
+                type: boolean
+                default: false
         steps:
             - checkout
             - set_env
@@ -46,62 +53,85 @@ jobs:
                         #rm tests/TestResults/*.trx
                     fi
                 when: always
-            - run:
-                name: pack
-                command: ./build.sh pack
-            - persist_to_workspace:
-                root: .
-                paths:
-                    - build.sh
-                    - NuGet-Packed
+            - unless:
+                condition: << parameters.debug-build >>
+                steps:
+                    - run:
+                        name: pack
+                        command: ./build.sh pack
+                    - persist_to_workspace:
+                        root: .
+                        paths:
+                            - build.sh
+                            - NuGet-Packed
             - store_test_results:
                 path: tests/TestResults
             - store_artifacts:
                 path: tests/TestResults
                 destination: TestResults
-    deploy_nuget:
+
+jobs:
+    release_build_test:
         <<: *defaults
+        steps:
+            - build_test
+
+    debug_build_test:
+        <<: *defaults
+        environment:
+            BUILD_CONFIG: Debug
+        steps:
+            - build_test:
+                debug-build: true
+
+    deploy:
+        <<: *defaults
+        parameters:
+            target:
+                type: string
         steps:
             - set_env
             - attach_workspace:
                 at: .
             - run:
-                name: deploy to NuGet
+                name: deploy to << parameters.target >>
                 command: |
                     chmod ugo+x ./build.sh
-                    ./build.sh deploy nuget
-    deploy_myget:
-        <<: *defaults
-        steps:
-            - set_env
-            - attach_workspace:
-                at: .
-            - run:
-                name: deploy to MyGet
-                command: |
-                    chmod ugo+x ./build.sh
-                    ./build.sh deploy myget
+                    ./build.sh deploy << parameters.target >>
 
 workflows:
     version: 2
     build_test_deploy:
         jobs:
-            - build_test_pack:
+            - release_build_test:
                 filters:
                     tags:
                         only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
-            - deploy_nuget:
+
+            - debug_build_test:
+                filters:
+                    tags:
+                        only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
+
+            - deploy:
+                name: deploy-nuget
+                target: nuget
                 requires:
-                    - build_test_pack
+                    - release_build_test
+                    - debug_build_test
                 filters:
                     branches:
                         ignore: /.*/
                     tags:
                         only: /^v[0-9]\.[0-9]\.[0-9]$/
                 context: org-global
-            - deploy_myget:
+
+            - deploy:
+                name: deploy-myget
+                target: myget
                 requires:
-                    - build_test_pack
+                    - release_build_test
+                    - debug_build_test
                 filters:
                     branches:
                         #only: master
