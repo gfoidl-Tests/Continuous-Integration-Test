@@ -1,12 +1,12 @@
 version: 2.1
 
-defaults: &defaults
-    working_directory: ~/repo
-    docker:
-        - image: microsoft/dotnet:2.1-sdk
-          environment:
-            DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-            DOTNET_CLI_TELEMETRY_OPTOUT: 1
+executors:
+    dotnet-executor:
+        docker:
+            - image: microsoft/dotnet:2.1-sdk
+              environment:
+                DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+                DOTNET_CLI_TELEMETRY_OPTOUT: 1
 
 commands:
     set_env:
@@ -72,12 +72,12 @@ commands:
 
 jobs:
     release_build_test:
-        <<: *defaults
+        executor: dotnet-executor
         steps:
             - build_test
 
     debug_build_test:
-        <<: *defaults
+        executor: dotnet-executor
         environment:
             BUILD_CONFIG: Debug
         steps:
@@ -85,7 +85,7 @@ jobs:
                 debug-build: true
 
     deploy:
-        <<: *defaults
+        executor: dotnet-executor
         parameters:
             target:
                 type: string
@@ -115,7 +115,7 @@ workflows:
 
             - deploy:
                 name: deploy-nuget
-                target: nuget
+                target: nuget       # parameter
                 requires:
                     - release_build_test
                     - debug_build_test
@@ -128,7 +128,7 @@ workflows:
 
             - deploy:
                 name: deploy-myget
-                target: myget
+                target: myget       # parameter
                 requires:
                     - release_build_test
                     - debug_build_test
