@@ -39,6 +39,7 @@ commands:
                 command: |
                     chmod ugo+x ./build.sh
                     dotnet tool install -g trx2junit
+                    dotnet tool install -g coverlet.console
             - run:
                 name: build
                 command: ./build.sh build
@@ -53,6 +54,14 @@ commands:
                         #rm tests/TestResults/*.trx
                     fi
                 when: always
+            - run:
+                name: code coverage
+                command: |
+                    if [[ -z "$CODECOV_TOKEN" ]]; then
+                        echo "codecov token not set -- skipping code coverage"
+                    else
+                        ./build.sh coverage
+                    fi
             - unless:
                 condition: << parameters.debug-build >>
                 steps:
