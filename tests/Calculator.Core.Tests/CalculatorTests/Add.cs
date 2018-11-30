@@ -21,7 +21,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             Assert.AreEqual(7, actual);
         }
         //---------------------------------------------------------------------
-        //[Test]
+        [Test]
         public void Summand_and_0___summand_returned()
         {
             int first  = 42;
