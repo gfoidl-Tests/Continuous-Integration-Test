@@ -18,7 +18,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             int actual = sut.Add(first, second);
 
             // Assert:
-            Assert.AreEqual(71, actual);
+            Assert.AreEqual(7, actual);
         }
         //---------------------------------------------------------------------
         [Test]
