@@ -1,5 +1,5 @@
 ﻿<Project>
-    
+
     <PropertyGroup>
         <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
         <VersionMinor Condition="'$(VersionMinor)' == ''">3</VersionMinor>
@@ -13,7 +13,7 @@
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-Packed</PackageOutputPath>
     </PropertyGroup>
