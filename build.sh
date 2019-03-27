@@ -253,7 +253,7 @@ main() {
     esac
 }
 #------------------------------------------------------------------------------
-echo "build script, (c) gfoidl, 2018"
+echo "build script, (c) gfoidl, 2018-$(date +%Y)"
 
 workingDir=$(pwd)
 
