@@ -35,8 +35,8 @@
 #   _testCore           helper -- used by test
 #
 # Exit-codes:
-#   1001                deploy target is neither 'nuget' nor 'myget', so it is unknown
-#   1002                no args given for script, help is displayed and exited
+#   101                 deploy target is neither 'nuget' nor 'myget', so it is unknown
+#   102                 no args given for script, help is displayed and exited
 #   $?                  exit-code for build-step is returned unmodified
 #------------------------------------------------------------------------------
 set -e
@@ -94,8 +94,8 @@ _testCore() {
     testDir=$(dirname "$testFullName")
     testNameWOExtension=$(basename "$testDir")
     testName=$(basename "$testFullName")
-    testResultName="$testName-$(date +%s).trx"
-    dotnetTestArgs="-c $BUILD_CONFIG --no-build --logger \"trx;LogFileName=$testResultName\" $testFullName"
+    testResultName="$testNameWOExtension-$(date +%s)"
+    dotnetTestArgs="-c $BUILD_CONFIG --no-build --logger \"trx;LogFileName=$testResultName.trx\" $testFullName"
 
     if [[ -n "$TESTS_TO_SKIP" ]]; then
         testsToSkip=(${TESTS_TO_SKIP//;/ })
@@ -124,7 +124,7 @@ _testCore() {
     local result=$?
 
     mkdir -p "./tests/TestResults"
-    mv "$testDir/TestResults/$testResultName" "./tests/TestResults/$testResultName"
+    mv $testDir/TestResults/$testResultName*.trx ./tests/TestResults
 
     if [[ $result != 0 ]]; then
         exit $result
@@ -140,13 +140,9 @@ test() {
         return
     fi
 
-    export -f _testCore
-    find "$testDir" -name "*.csproj" -print0 | xargs -0 -n1 bash -c '_testCore "$@"' _
-
-    # similar, but not so save (i.e. _testCore has to be updated) as the find-variant
-    # for testProject in "$testDir"/**/*.csproj; do
-        # _testCore "$testProject"
-    # done
+    for testProject in "$testDir"/**/*.csproj; do
+        _testCore "$testProject"
+    done
 }
 #------------------------------------------------------------------------------
 _coverageCore() {
@@ -226,7 +222,7 @@ deploy() {
         echo "Skipping deploy because 'local'"
     else
         echo "Unknown deploy target '$1', aborting"
-        exit 1001
+        exit 101
     fi
 }
 #------------------------------------------------------------------------------
@@ -259,7 +255,7 @@ workingDir=$(pwd)
 
 if [[ $# -lt 1 ]]; then
     help
-    exit 1002
+    exit 102
 fi
 
 main $*
