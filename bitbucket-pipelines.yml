@@ -3,7 +3,7 @@
 # NAME   Calculator.Core
 
 image:
-    name: microsoft/dotnet:2.2-sdk
+    name: mcr.microsoft.com/dotnet/core/sdk:3.0
 
 clone:
     depth: 1

@@ -3,7 +3,7 @@ version: 2.1
 executors:
     dotnet-executor:
         docker:
-            - image: microsoft/dotnet:2.2-sdk
+            - image: mcr.microsoft.com/dotnet/core/sdk:3.0
               environment:
                 DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
                 DOTNET_CLI_TELEMETRY_OPTOUT: 1
@@ -39,7 +39,9 @@ commands:
                 command: |
                     chmod ugo+x ./build.sh
                     dotnet tool install -g trx2junit
-                    dotnet tool install -g coverlet.console
+                    
+                    # Nightly build from coverlet.console for .NET Core 3.0
+                    dotnet tool install -g --add-source https://www.myget.org/F/coverlet-dev/api/v3/index.json --version 1.5.69-gafe227b39e coverlet.console
             - run:
                 name: build
                 command: ./build.sh build
