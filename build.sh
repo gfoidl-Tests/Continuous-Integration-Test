@@ -98,7 +98,7 @@ _testCore() {
     testNameWOExtension=$(basename "$testDir")
     testName=$(basename "$testFullName")
     testResultName="$testNameWOExtension-$(date +%s)"
-    dotnetTestArgs="-c $BUILD_CONFIG --no-build --logger \"trx;LogFileName=$testResultName.trx\" $testFullName"
+    dotnetTestArgs="-c $BUILD_CONFIG --no-build --verbosity normal --logger \"trx;LogFileName=$testResultName.trx\" $testFullName"
 
     if [[ -n "$TESTS_TO_SKIP" ]]; then
         testsToSkip=(${TESTS_TO_SKIP//;/ })
