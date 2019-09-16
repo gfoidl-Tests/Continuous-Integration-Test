@@ -162,7 +162,7 @@ _coverageCore() {
 
     cd "$testDir"
 
-    for test in ./bin/$BUILD_CONFIG/**/*.Tests.dll; do
+    for test in ./bin/$BUILD_CONFIG/**/*.Tests*.dll; do
         targetFramework=$(basename $(dirname $test))
         mkdir -p "coverage/$targetFramework"
         coverlet "$test" --target "dotnet" --targetargs "test --no-build -c $BUILD_CONFIG" --format opencover -o "./coverage/$targetFramework/coverage.opencover.xml"
