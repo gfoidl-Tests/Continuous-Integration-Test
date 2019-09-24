@@ -117,12 +117,12 @@ workflows:
             - release_build_test:
                 filters:
                     tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
+                        only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
 
             - debug_build_test:
                 filters:
                     tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
+                        only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
 
             - deploy:
                 name: deploy-nuget
@@ -134,7 +134,7 @@ workflows:
                     branches:
                         ignore: /.*/
                     tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9]$/
+                        only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
                 context: org-global
 
             - deploy:
@@ -148,5 +148,5 @@ workflows:
                         #only: master
                         ignore: /.*/
                     tags:
-                        only: /^v[0-9]\.[0-9]\.[0-9](-preview-[0-9]+)?$/
+                        only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
                 context: org-global
