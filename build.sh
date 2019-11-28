@@ -98,7 +98,7 @@ _testCore() {
     testNameWOExtension=$(basename "$testDir")
     testName=$(basename "$testFullName")
     testResultName="$testNameWOExtension-$(date +%s)"
-    dotnetTestArgs="-c $BUILD_CONFIG --no-build --verbosity quiet --logger \"trx;LogFileName=$testResultName.trx\" $testFullName"
+    dotnetTestArgs="-c $BUILD_CONFIG --no-build --verbosity minimal --logger \"trx;LogFileName=$testResultName.trx\" $testFullName"
 
     if [[ -n "$TESTS_TO_SKIP" ]]; then
         testsToSkip=(${TESTS_TO_SKIP//;/ })
@@ -193,7 +193,7 @@ coverage() {
         fi
 
         # a cool script, does quite a lot without any args :-)
-        ./codecov.sh
+        ./codecov.sh -Z
     else
         echo "CODECOV_TOKEN not set -- skipping upload"
     fi
