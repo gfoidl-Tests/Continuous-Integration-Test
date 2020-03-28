@@ -5,10 +5,7 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D9E029F3-32FB-4C7E-B860-D44C72D0B889}"
 	ProjectSection(SolutionItems) = preProject
-		.appveyor.yml = .appveyor.yml
 		.codecov.yml = .codecov.yml
-		.travis.yml = .travis.yml
-		bitbucket-pipelines.yml = bitbucket-pipelines.yml
 		build.sh = build.sh
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
@@ -38,13 +35,61 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure", ".azure", "{A17C2323-C804-4DE8-A332-3EFAEEE2B7C6}"
-	ProjectSection(SolutionItems) = preProject
-		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{BD118D28-C29D-4FBD-881D-75230E085FA7}"
 	ProjectSection(SolutionItems) = preProject
 		.azure\pipelines\jobs\build_and_test.yml = .azure\pipelines\jobs\build_and_test.yml
+		.azure\pipelines\jobs\build_docs.yml = .azure\pipelines\jobs\build_docs.yml
+		.azure\pipelines\jobs\deploy_docs.yml = .azure\pipelines\jobs\deploy_docs.yml
+		.azure\pipelines\jobs\deploy_nuget.yml = .azure\pipelines\jobs\deploy_nuget.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{13B85AF8-B5FC-499E-97CA-EA6B81845C0A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODEOWNERS = .github\CODEOWNERS
+		.github\pull_request_template.md = .github\pull_request_template.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5DB49E69-D9C5-4249-9BF9-24512365F22E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{BB4B6873-BBE8-4676-B46A-58C6176C8BDC}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{B407DDCD-A4A6-46C4-B38B-8581F44B2569}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\automerge.yml = .github\workflows\automerge.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api-doc", "api-doc", "{F898F2F2-7671-4D61-AAE9-09102D21D698}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\.gitignore = api-doc\.gitignore
+		api-doc\docfx.json = api-doc\docfx.json
+		api-doc\index.md = api-doc\index.md
+		api-doc\toc.yml = api-doc\toc.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D838218E-3584-4197-A4F1-5995F78B2118}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\images\logo_32.png = api-doc\images\logo_32.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{4A4A76F2-59DE-4D02-83F9-D3938C4F5E68}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\articles\intro.md = api-doc\articles\intro.md
+		api-doc\articles\toc.yml = api-doc\articles\toc.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{EBC95C9C-AEF5-48CC-9174-4D276D359475}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\api\.gitignore = api-doc\api\.gitignore
+		api-doc\api\index.md = api-doc\api\index.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{A048E82E-A930-4471-81AE-B6F9E6C7D818}"
+	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
 	EndProjectSection
 EndProject
 Global
@@ -70,7 +115,16 @@ Global
 		{3FF52F2C-352B-4E7A-9CE3-4EC1133166C2} = {7CB48037-B8E6-4D89-8788-E145958CE8CF}
 		{79A13352-2C36-47DB-90E0-AF6EE44B4329} = {D9E029F3-32FB-4C7E-B860-D44C72D0B889}
 		{A17C2323-C804-4DE8-A332-3EFAEEE2B7C6} = {D9E029F3-32FB-4C7E-B860-D44C72D0B889}
-		{BD118D28-C29D-4FBD-881D-75230E085FA7} = {A17C2323-C804-4DE8-A332-3EFAEEE2B7C6}
+		{BD118D28-C29D-4FBD-881D-75230E085FA7} = {A048E82E-A930-4471-81AE-B6F9E6C7D818}
+		{13B85AF8-B5FC-499E-97CA-EA6B81845C0A} = {3D447951-6950-468A-85C0-4E7318F1E3E9}
+		{5DB49E69-D9C5-4249-9BF9-24512365F22E} = {D9E029F3-32FB-4C7E-B860-D44C72D0B889}
+		{BB4B6873-BBE8-4676-B46A-58C6176C8BDC} = {13B85AF8-B5FC-499E-97CA-EA6B81845C0A}
+		{B407DDCD-A4A6-46C4-B38B-8581F44B2569} = {5DB49E69-D9C5-4249-9BF9-24512365F22E}
+		{F898F2F2-7671-4D61-AAE9-09102D21D698} = {3D447951-6950-468A-85C0-4E7318F1E3E9}
+		{D838218E-3584-4197-A4F1-5995F78B2118} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
+		{4A4A76F2-59DE-4D02-83F9-D3938C4F5E68} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
+		{EBC95C9C-AEF5-48CC-9174-4D276D359475} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
+		{A048E82E-A930-4471-81AE-B6F9E6C7D818} = {A17C2323-C804-4DE8-A332-3EFAEEE2B7C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7243B696-0018-41B8-8842-74C7046CB05C}

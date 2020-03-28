@@ -39,7 +39,7 @@ commands:
                 command: |
                     chmod ugo+x ./build.sh
                     dotnet tool install -g trx2junit
-                    
+
                     # Nightly build from coverlet.console for .NET Core 3.0
                     dotnet tool install -g --add-source https://www.myget.org/F/coverlet-dev/api/v3/index.json --version 1.5.69-gafe227b39e coverlet.console
             - run:
@@ -116,11 +116,15 @@ workflows:
         jobs:
             - release_build_test:
                 filters:
+                    branches:
+                        ignore: gh-pages
                     tags:
                         only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
 
             - debug_build_test:
                 filters:
+                    branches:
+                        ignore: gh-pages
                     tags:
                         only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
 
