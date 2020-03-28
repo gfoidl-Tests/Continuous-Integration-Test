@@ -128,29 +128,29 @@ workflows:
                     tags:
                         only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
 
-            - deploy:
-                name: deploy-nuget
-                target: nuget       # parameter
-                requires:
-                    - release_build_test
-                    - debug_build_test
-                filters:
-                    branches:
-                        ignore: /.*/
-                    tags:
-                        only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-                context: org-global
-
-            - deploy:
-                name: deploy-myget
-                target: myget       # parameter
-                requires:
-                    - release_build_test
-                    - debug_build_test
-                filters:
-                    branches:
-                        #only: master
-                        ignore: /.*/
-                    tags:
-                        only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
-                context: org-global
+            #- deploy:
+            #    name: deploy-nuget
+            #    target: nuget       # parameter
+            #    requires:
+            #        - release_build_test
+            #        - debug_build_test
+            #    filters:
+            #        branches:
+            #            ignore: /.*/
+            #        tags:
+            #            only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+            #    context: org-global
+            #
+            #- deploy:
+            #    name: deploy-myget
+            #    target: myget       # parameter
+            #    requires:
+            #        - release_build_test
+            #        - debug_build_test
+            #    filters:
+            #        branches:
+            #            #only: master
+            #            ignore: /.*/
+            #        tags:
+            #            only: /^v[0-9]+\.[0-9]+\.[0-9]+(-preview-[0-9]+)?$/
+            #    context: org-global
