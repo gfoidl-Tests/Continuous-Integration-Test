@@ -62,6 +62,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\automerge.yml = .github\workflows\automerge.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api-doc", "api-doc", "{F898F2F2-7671-4D61-AAE9-09102D21D698}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\.gitignore = api-doc\.gitignore
+		api-doc\docfx.json = api-doc\docfx.json
+		api-doc\index.md = api-doc\index.md
+		api-doc\toc.yml = api-doc\toc.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D838218E-3584-4197-A4F1-5995F78B2118}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\images\logo_32.png = api-doc\images\logo_32.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{4A4A76F2-59DE-4D02-83F9-D3938C4F5E68}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\articles\intro.md = api-doc\articles\intro.md
+		api-doc\articles\toc.yml = api-doc\articles\toc.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{EBC95C9C-AEF5-48CC-9174-4D276D359475}"
+	ProjectSection(SolutionItems) = preProject
+		api-doc\api\.gitignore = api-doc\api\.gitignore
+		api-doc\api\index.md = api-doc\api\index.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +115,10 @@ Global
 		{5DB49E69-D9C5-4249-9BF9-24512365F22E} = {D9E029F3-32FB-4C7E-B860-D44C72D0B889}
 		{BB4B6873-BBE8-4676-B46A-58C6176C8BDC} = {13B85AF8-B5FC-499E-97CA-EA6B81845C0A}
 		{B407DDCD-A4A6-46C4-B38B-8581F44B2569} = {5DB49E69-D9C5-4249-9BF9-24512365F22E}
+		{F898F2F2-7671-4D61-AAE9-09102D21D698} = {3D447951-6950-468A-85C0-4E7318F1E3E9}
+		{D838218E-3584-4197-A4F1-5995F78B2118} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
+		{4A4A76F2-59DE-4D02-83F9-D3938C4F5E68} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
+		{EBC95C9C-AEF5-48CC-9174-4D276D359475} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7243B696-0018-41B8-8842-74C7046CB05C}
