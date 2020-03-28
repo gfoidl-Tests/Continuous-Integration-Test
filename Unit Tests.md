@@ -26,10 +26,10 @@ Tests.csproj
 
 ## Naming
 
-The scheme from [Naming standards for unit tests - Osherove](http://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html) 
+The scheme from [Naming standards for unit tests - Osherove](http://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html)
 is quite good, and is used with a modification to match beforementioned organization.
 
-`State_under_Test___expected_Behavior` 
+`State_under_Test___expected_Behavior`
 
 The method-name is already included in the class-name of the test, according to the above organizational-rules.
 

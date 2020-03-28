@@ -15,7 +15,7 @@ on:
     types:
       - submitted
 
-  check_suite: 
+  check_suite:
     types:
       - completed
 
