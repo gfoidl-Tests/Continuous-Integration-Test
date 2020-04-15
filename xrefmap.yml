@@ -1,0 +1,41 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: Calculator.Core
+  name: Calculator.Core
+  href: api/Calculator.Core.html
+  commentId: N:Calculator.Core
+  fullName: Calculator.Core
+  nameWithType: Calculator.Core
+- uid: Calculator.Core.Calculator
+  name: Calculator
+  href: api/Calculator.Core.Calculator.html
+  commentId: T:Calculator.Core.Calculator
+  fullName: Calculator.Core.Calculator
+  nameWithType: Calculator
+- uid: Calculator.Core.Calculator.Add(System.Int32,System.Int32)
+  name: Add(Int32, Int32)
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator_Add_System_Int32_System_Int32_
+  commentId: M:Calculator.Core.Calculator.Add(System.Int32,System.Int32)
+  fullName: Calculator.Core.Calculator.Add(System.Int32, System.Int32)
+  nameWithType: Calculator.Add(Int32, Int32)
+- uid: Calculator.Core.Calculator.Add*
+  name: Add
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator_Add_
+  commentId: Overload:Calculator.Core.Calculator.Add
+  isSpec: "True"
+  fullName: Calculator.Core.Calculator.Add
+  nameWithType: Calculator.Add
+- uid: Calculator.Core.Calculator.Subtract(System.Int32,System.Int32)
+  name: Subtract(Int32, Int32)
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator_Subtract_System_Int32_System_Int32_
+  commentId: M:Calculator.Core.Calculator.Subtract(System.Int32,System.Int32)
+  fullName: Calculator.Core.Calculator.Subtract(System.Int32, System.Int32)
+  nameWithType: Calculator.Subtract(Int32, Int32)
+- uid: Calculator.Core.Calculator.Subtract*
+  name: Subtract
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator_Subtract_
+  commentId: Overload:Calculator.Core.Calculator.Subtract
+  isSpec: "True"
+  fullName: Calculator.Core.Calculator.Subtract
+  nameWithType: Calculator.Subtract
