@@ -7,7 +7,7 @@
 #   test                runs all tests under ./tests
 #   coverage            determines code coverage with coverlet and uploads to codecov
 #   pack                creates the NuGet-package
-#   deploy              deploys to $2, which must be either nuget or myget
+#   deploy              deploys to $2, which must be either nuget or custom
 #                       * when CI_SKIP_DEPLOY is set, no deploy is done
 #                       * when DEBUG is set, the action is echoed and not done
 #
@@ -25,7 +25,7 @@
 # Functions (sorted alphabetically):
 #   build               builds the solution
 #   coverage            code coverage
-#   deploy              deploys the solution either to nuget or myget
+#   deploy              deploys the solution either to nuget or custom
 #   main                entry-point
 #   pack                creates the NuGet-package
 #   setBuildEnv         sets the environment variables regarding the build-environment
@@ -35,7 +35,7 @@
 #   _testCore           helper -- used by test
 #
 # Exit-codes:
-#   101                 deploy target is neither 'nuget' nor 'myget', so it is unknown
+#   101                 deploy target is neither 'nuget' nor 'custom', so it is unknown
 #   102                 no args given for script, help is displayed and exited
 #   $?                  exit-code for build-step is returned unmodified
 #------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ help() {
     echo "  test                   runs all tests under ./tests"
     echo "  coverage               determines code coverage with coverlet and uploads to codecov"
     echo "  pack                   creates the NuGet-package"
-    echo "  deploy [nuget|myget]   deploys to the destination"
+    echo "  deploy [nuget|custom]  deploys to the destination"
 }
 #------------------------------------------------------------------------------
 setBuildEnv() {
@@ -223,8 +223,8 @@ deploy() {
 
     if [[ "$1" == "nuget" ]]; then
         _deployCore "$NUGET_FEED" "$NUGET_KEY"
-    elif [[ "$1" == "myget" ]]; then
-        _deployCore "$MYGET_FEED" "$MYGET_KEY"
+    elif [[ "$1" == "custom" ]]; then
+        _deployCore "$CUSTOM_FEED" "$CUSTOM_KEY"
     elif [[ "$1" == "local" ]]; then
         echo "Skipping deploy because 'local'"
     else
