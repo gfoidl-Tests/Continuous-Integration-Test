@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 ## CI build script for projects based on gfoidl's schema.
 #
 # Arguments:
 #   build               builds the solution
 #   test                runs all tests under ./tests
-#   test-coverage       determines code coverage with coverlet.msbuild
+#   test-coverage       test + determines code coverage with coverlet.msbuild
 #   coverage            determines code coverage with coverlet and uploads to codecov
 #   pack                creates the NuGet-package
 #   deploy              deploys to $2, which must be either nuget or custom
@@ -49,7 +49,7 @@ help() {
     echo "Arguments:"
     echo "  build                  builds the solution"
     echo "  test                   runs all tests under ./tests"
-    echo "  test-coverage          determines code coverage with coverlet.msbuild"
+    echo "  test-coverage          test + determines code coverage with coverlet.msbuild"
     echo "  coverage               determines code coverage with coverlet and uploads to codecov"
     echo "  pack                   creates the NuGet-package"
     echo "  deploy [nuget|custom]  deploys to the destination"
