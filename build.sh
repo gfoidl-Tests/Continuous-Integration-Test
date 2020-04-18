@@ -130,15 +130,24 @@ _testCore() {
     if [[ -n "$collectCoverage" ]]; then
         echo "running tests and collecting code coverage"
         echo ""
-        dotnetTestArgs+=("/p:CollectCoverage=true" "/p:CoverletOutputFormat=cobertura")
+
+        # Strange but git-bash (Windows) needs double-escapes
+        if [[ $(uname | grep mingw -i | wc -l) -eq 0 ]]; then
+            dotnetTestArgs+=("/p:CollectCoverage=true" "/p:CoverletOutputFormat=cobertura")
+        else
+            dotnetTestArgs+=("//p:CollectCoverage=true" "//p:CoverletOutputFormat=cobertura")
+        fi
+
     fi
 
     dotnetTestArgs+=("${testFullName}")
+    #echo ${dotnetTestArgs[@]}
+    #exit
     dotnet test ${dotnetTestArgs[@]}
 
     local result=$?
 
-    if [[ -n $"MOVE_TRX" ]]; then
+    if [[ -n "$MOVE_TRX" ]]; then
         mkdir -p "./tests/TestResults"
         mv "$testDir"/TestResults/$testResultName*.trx ./tests/TestResults
 
