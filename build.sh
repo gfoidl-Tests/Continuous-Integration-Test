@@ -190,7 +190,7 @@ test_coverage() {
         echo "already installed"
     fi
 
-    reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:Coverage -reporttypes:"Cobertura"
+    reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura"
 }
 #------------------------------------------------------------------------------
 _coverageCore() {
