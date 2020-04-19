@@ -177,7 +177,10 @@ test_coverage() {
     collectCoverage=1
     test
 
+    # Each test-project has it's coverage report, so merge them to one report
+
     echo "check if dotnet-reportgenerator-globaltool is installed..."
+
     if [[ $(dotnet tool list -g | grep dotnet-reportgenerator-globaltool | wc -l) -eq 0 ]]; then
         echo "not installed -> will install it"
         export PATH="$PATH:$HOME/.dotnet/tools"
@@ -186,7 +189,9 @@ test_coverage() {
         echo "already installed"
     fi
 
-    reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura"
+    echo ""
+
+    reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura;HtmlInline_AzurePipelines"
 }
 #------------------------------------------------------------------------------
 _coverageCore() {

@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{BD118D28-C
 	ProjectSection(SolutionItems) = preProject
 		.azure\pipelines\jobs\build_and_test.yml = .azure\pipelines\jobs\build_and_test.yml
 		.azure\pipelines\jobs\build_docs.yml = .azure\pipelines\jobs\build_docs.yml
+		.azure\pipelines\jobs\coverage.yml = .azure\pipelines\jobs\coverage.yml
 		.azure\pipelines\jobs\deploy_docs.yml = .azure\pipelines\jobs\deploy_docs.yml
 		.azure\pipelines\jobs\deploy_nuget.yml = .azure\pipelines\jobs\deploy_nuget.yml
 	EndProjectSection
