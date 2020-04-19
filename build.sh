@@ -131,8 +131,10 @@ _testCore() {
         echo "running tests and collecting code coverage"
         echo ""
 
-        # Strange but git-bash (Windows) needs double-escapes
-        # so use -p instead
+        # Strange but git-bash (Windows) needs double-escapes, so //p:CollectCoverage=true
+        # whereas non-Windows just needs /p:CollectCoverage=true
+        # To avoid platform detection like [[ $(uname | grep mingw -i | wc -l) -ge 0 ]]
+        # use -p instead to be on the safe side.
         dotnetTestArgs+=("-p:CollectCoverage=true" "-p:CoverletOutputFormat=cobertura")
     fi
 
