@@ -186,9 +186,13 @@ test_coverage() {
         echo "already installed"
     fi
 
+    echo ""
+
     reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura"
 
-    newName="Cobertura-${OS}.xml"
+    echo ""
+
+    newName="Cobertura-$(uname).xml"
     mv tests/Coverage/Cobertura.xml tests/Coverage/${newName}.xml
     echo "stored report to tests/Coverage/${newName}"
 }
