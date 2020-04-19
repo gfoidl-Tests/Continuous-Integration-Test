@@ -132,12 +132,8 @@ _testCore() {
         echo ""
 
         # Strange but git-bash (Windows) needs double-escapes
-        if [[ $(uname | grep mingw -i | wc -l) -eq 0 ]]; then
-            dotnetTestArgs+=("/p:CollectCoverage=true" "/p:CoverletOutputFormat=cobertura")
-        else
-            dotnetTestArgs+=("//p:CollectCoverage=true" "//p:CoverletOutputFormat=cobertura")
-        fi
-
+        # so use -p instead
+        dotnetTestArgs+=("-p:CollectCoverage=true" "-p:CoverletOutputFormat=cobertura")
     fi
 
     dotnetTestArgs+=("${testFullName}")
