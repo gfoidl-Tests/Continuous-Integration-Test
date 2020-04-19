@@ -191,7 +191,7 @@ test_coverage() {
 
     echo ""
 
-    reportgenerator -sourcedirs:"$(pwd)" -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura;HtmlInline_AzurePipelines"
+    reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura;HtmlInline_AzurePipelines"
 }
 #------------------------------------------------------------------------------
 _coverageCore() {
