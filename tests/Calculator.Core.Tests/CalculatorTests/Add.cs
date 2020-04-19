@@ -5,7 +5,7 @@ namespace Calculator.Core.Tests.CalculatorTests
     [TestFixture]
     public class Add
     {
-        //[Test]
+        [Test]
         public void Summands_given___correct_result()
         {
             // Arrange

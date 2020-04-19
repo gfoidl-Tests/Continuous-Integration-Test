@@ -5,7 +5,7 @@ namespace Calculator.Core.Tests.CalculatorTests
     [TestFixture]
     public class Subtract
     {
-        //[Test]
+        [Test]
         public void Args_given___correct_result()
         {
             // Arrange
@@ -21,7 +21,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             Assert.AreEqual(1, actual);
         }
         //---------------------------------------------------------------------
-        //[Test, Ignore("for demo purposes")]
+        [Test, Ignore("for demo purposes")]
         public void Foo()
         {
             Assert.AreEqual(1, 1);
