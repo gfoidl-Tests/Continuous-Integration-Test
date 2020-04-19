@@ -1,3 +1,8 @@
+# Reminder:
+# =========
+# branch protection rules must be set, otherwise the automerge will happen as soon as the label
+# is applied and not when CI is readay.
+
 name: automerge
 on:
   pull_request:
