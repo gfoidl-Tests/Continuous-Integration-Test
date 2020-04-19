@@ -187,6 +187,10 @@ test_coverage() {
     fi
 
     reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura"
+
+    newName="Cobertura-${OS}.xml"
+    mv tests/Coverage/Cobertura.xml tests/Coverage/${newName}.xml
+    echo "stored report to tests/Coverage/${newName}"
 }
 #------------------------------------------------------------------------------
 _coverageCore() {
