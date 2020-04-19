@@ -139,8 +139,6 @@ _testCore() {
     fi
 
     dotnetTestArgs+=("${testFullName}")
-    #echo ${dotnetTestArgs[@]}
-    #exit
     dotnet test ${dotnetTestArgs[@]}
 
     local result=$?
