@@ -189,12 +189,6 @@ test_coverage() {
     echo ""
 
     reportgenerator -reports:tests/**/*.cobertura.xml -targetdir:tests/Coverage -reporttypes:"Cobertura"
-
-    echo ""
-
-    newName="Cobertura-$(uname).xml"
-    mv tests/Coverage/Cobertura.xml tests/Coverage/${newName}.xml
-    echo "stored report to tests/Coverage/${newName}"
 }
 #------------------------------------------------------------------------------
 _coverageCore() {
