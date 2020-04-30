@@ -4,6 +4,8 @@ root = true
 # all files
 [*]
 
+charset = utf-8
+
 # Indentation and spacing
 indent_style = space
 indent_size = 4
