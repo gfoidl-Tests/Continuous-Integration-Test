@@ -93,7 +93,7 @@ _testCore() {
     local testDir
     local testNameWOExtension
     local testName
-    local testResultName
+    #local testResultName
     local dotnetTestArgs
     local testsToSkip
 
@@ -101,9 +101,10 @@ _testCore() {
     testDir=$(dirname "$testFullName")
     testNameWOExtension=$(basename "$testDir")
     testName=$(basename "$testFullName")
-    testResultName="$testNameWOExtension-$(date +%s)"
+    #testResultName="$testNameWOExtension-$(date +%Y%m%d-%H%M%S_%N)"
 
-    dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity minimal" "--logger \"trx;LogFileName=${testResultName}.trx\"")
+    #dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity minimal" "--logger \"trx;LogFileName=${testResultName}.trx\"")
+    dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity minimal" "--logger \"trx\"")
 
     if [[ -n "$TESTS_TO_SKIP" ]]; then
         testsToSkip=(${TESTS_TO_SKIP//;/ })
@@ -120,7 +121,7 @@ _testCore() {
     echo "test framework:   ${TEST_FRAMEWORK-not specified}"
     echo "test fullname:    $testFullName"
     echo "testing:          $testName..."
-    echo "test result name: $testResultName"
+    #echo "test result name: $testResultName"
     echo ""
 
     if [[ -n "$TEST_FRAMEWORK" ]]; then
@@ -145,7 +146,7 @@ _testCore() {
 
     if [[ -n "$MOVE_TRX" ]]; then
         mkdir -p "./tests/TestResults"
-        mv "$testDir"/TestResults/$testResultName*.trx ./tests/TestResults
+        mv "$testDir"/TestResults/*.trx ./tests/TestResults
 
         echo "moved test-results (trx) to tests/TestResults"
     fi
