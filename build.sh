@@ -104,8 +104,8 @@ _testCore() {
     testName=$(basename "$testFullName")
     #testResultName="$testNameWOExtension-$(date +%Y%m%d-%H%M%S_%N)"
 
-    #dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity minimal" "--logger \"trx;LogFileName=${testResultName}.trx\"")
-    dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity minimal" "--logger \"trx\"")
+    #dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity normal" "--logger \"trx;LogFileName=${testResultName}.trx\"")
+    dotnetTestArgs=("-c ${BUILD_CONFIG}" "--no-build" "--verbosity normal" "--logger \"trx\"")
 
     if [[ -n "$TESTS_TO_SKIP" ]]; then
         testsToSkip=(${TESTS_TO_SKIP//;/ })
