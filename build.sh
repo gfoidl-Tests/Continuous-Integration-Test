@@ -19,6 +19,7 @@
 #   TAG_NAME            tag the commit is on
 #   CI_SKIP_DEPLOY      when set no deploy is done, even if deploy is called
 #   DEBUG               when set deploy is simulted by echoing the action
+#   TEST_DIR            directory in which to search for test-assemblies
 #   TEST_FRAMEWORK      when set only the specified test-framework (dotnet test -f) will be used
 #   TESTS_TO_SKIP       a list of test-projects to skip / ignore, separated by ;
 #   CODECOV_TOKEN       the token for codecov to uploads the opencover-xml
@@ -56,7 +57,7 @@ help() {
 }
 #------------------------------------------------------------------------------
 setBuildEnv() {
-    export BUILD_CONFIG=${BUILD_CONFIG-Release}
+    export BUILD_CONFIG=${BUILD_CONFIG:-Release}
 
     # BuildNumber is used by MsBuild for version information.
     # ci tools clone usually to depth 50, so this is not good
@@ -118,7 +119,7 @@ _testCore() {
     fi
 
     echo ""
-    echo "test framework:   ${TEST_FRAMEWORK-not specified}"
+    echo "test framework:   ${TEST_FRAMEWORK:-not specified}"
     echo "test fullname:    $testFullName"
     echo "testing:          $testName..."
     #echo "test result name: $testResultName"
@@ -161,7 +162,7 @@ _testCore() {
 #------------------------------------------------------------------------------
 test() {
     local testDir
-    testDir="./tests"
+    testDir="${TEST_DIR:-./tests}"
 
     if [[ ! -d "$testDir" ]]; then
         echo "test-directory not existing -> no test need to run"
