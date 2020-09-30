@@ -19,6 +19,8 @@ trim_trailing_whitespace = true
 # C# files
 [*.cs]
 
+file_header_template = (c) gfoidl, all rights reserved
+
 #### .NET Coding Conventions ####
 
 # Organize usings
@@ -233,3 +235,6 @@ dotnet_naming_style.instance_field.required_prefix = _
 dotnet_naming_style.instance_field.required_suffix =
 dotnet_naming_style.instance_field.word_separator =
 dotnet_naming_style.instance_field.capitalization = camel_case
+
+# RCS1096: Convert 'HasFlag' call to bitwise operation (or vice versa).
+dotnet_diagnostic.RCS1096.severity = none

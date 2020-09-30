@@ -1,4 +1,6 @@
-﻿namespace Calculator.Core
+// (c) gfoidl, all rights reserved
+
+namespace Calculator.Core
 {
     /// <summary>
     /// Simple calculator

@@ -1,3 +1,5 @@
+// (c) gfoidl, all rights reserved
+
 using System.IO;
 using System.Text.Json;
 using NUnit.Framework;

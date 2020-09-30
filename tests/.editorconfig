@@ -1,0 +1,22 @@
+root = false
+
+# C# files
+[*.cs]
+
+# NUnit2005: Consider using Assert.That(actual, Is.EqualTo(expected)) instead of Assert.AreEqual(expected, actual).
+dotnet_diagnostic.NUnit2005.severity = none
+
+# NUnit2015: Consider using Assert.That(actual, Is.SameAs(expected)) instead of Assert.AreSame(expected, actual).
+dotnet_diagnostic.NUnit2015.severity = none
+
+# NUnit2027: Consider using Assert.That(actual, Is.GreaterThan(expected)) instead of Assert.Greater(actual, expected).
+dotnet_diagnostic.NUnit2027.severity = none
+
+# RCS1090: Call 'ConfigureAwait(false)'.
+dotnet_diagnostic.RCS1090.severity = none
+
+# NUnit2003: Consider using Assert.That(expr, Is.True) instead of Assert.IsTrue(expr).
+dotnet_diagnostic.NUnit2003.severity = none
+
+# NUnit2002: Consider using Assert.That(expr, Is.False) instead of Assert.IsFalse(expr).
+dotnet_diagnostic.NUnit2002.severity = none
