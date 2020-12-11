@@ -93,6 +93,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{62FAA568-AD57-4479-A1A7-92C2E0876DE0}"
+	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\jobs\steps\dotnet-install.yml = .azure\pipelines\jobs\steps\dotnet-install.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +131,7 @@ Global
 		{4A4A76F2-59DE-4D02-83F9-D3938C4F5E68} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
 		{EBC95C9C-AEF5-48CC-9174-4D276D359475} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
 		{A048E82E-A930-4471-81AE-B6F9E6C7D818} = {A17C2323-C804-4DE8-A332-3EFAEEE2B7C6}
+		{62FAA568-AD57-4479-A1A7-92C2E0876DE0} = {BD118D28-C29D-4FBD-881D-75230E085FA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7243B696-0018-41B8-8842-74C7046CB05C}

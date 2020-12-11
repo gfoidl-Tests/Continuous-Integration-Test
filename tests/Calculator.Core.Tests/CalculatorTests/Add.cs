@@ -1,8 +1,11 @@
 // (c) gfoidl, all rights reserved
 
 using System.IO;
-using System.Text.Json;
 using NUnit.Framework;
+
+#if NETCOREAPP
+using System.Text.Json;
+#endif
 
 namespace Calculator.Core.Tests.CalculatorTests
 {
@@ -43,6 +46,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             Assert.AreEqual(first, actual);
         }
         //---------------------------------------------------------------------
+#if NETCOREAPP
         [Test]
         public void Summands_given___output_written_to_json_and_attached()
         {
@@ -66,5 +70,6 @@ namespace Calculator.Core.Tests.CalculatorTests
             TestContext.AddTestAttachment("res.json");
             TestContext.AddTestAttachment("res.json", "Attachment with description");
         }
+#endif
     }
 }

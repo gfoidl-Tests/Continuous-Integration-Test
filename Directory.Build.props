@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
     <PropertyGroup>
         <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
@@ -15,8 +15,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <LangVersion>latest</LangVersion>
-        <StandardTfms>netcoreapp3.1</StandardTfms>
+        <StandardTfms>net5.0</StandardTfms>
     </PropertyGroup>
 
     <PropertyGroup>
