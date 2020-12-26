@@ -10,12 +10,21 @@
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="..\shared\*.cs" Link="%(FileName).cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+
+        <!-- Latest Moq package sucks, as it has debug-symbols embedded and VS always shows "Source not found" -->
+        <PackageReference Include="Moq" Version="4.14.7" />
+
         <PackageReference Include="NUnit" Version="3.12.0" />
-		<PackageReference Include="NUnit.Analyzers" Version="0.6.0" />
+        <PackageReference Include="NUnit.Analyzers" Version="0.6.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +33,8 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     </ItemGroup>
 
 </Project>

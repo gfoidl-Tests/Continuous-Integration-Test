@@ -24,6 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Core", "source\C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7CB48037-B8E6-4D89-8788-E145958CE8CF}"
 	ProjectSection(SolutionItems) = preProject
+		tests\.editorconfig = tests\.editorconfig
 		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
 EndProject
@@ -98,6 +99,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{62FAA568
 		.azure\pipelines\jobs\steps\dotnet-install.yml = .azure\pipelines\jobs\steps\dotnet-install.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{75199DBF-BEF7-4EDB-BE30-BB26188A11AD}"
+	ProjectSection(SolutionItems) = preProject
+		tests\shared\AbstractLogger.cs = tests\shared\AbstractLogger.cs
+		tests\shared\NUnitParallelism.cs = tests\shared\NUnitParallelism.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +139,7 @@ Global
 		{EBC95C9C-AEF5-48CC-9174-4D276D359475} = {F898F2F2-7671-4D61-AAE9-09102D21D698}
 		{A048E82E-A930-4471-81AE-B6F9E6C7D818} = {A17C2323-C804-4DE8-A332-3EFAEEE2B7C6}
 		{62FAA568-AD57-4479-A1A7-92C2E0876DE0} = {BD118D28-C29D-4FBD-881D-75230E085FA7}
+		{75199DBF-BEF7-4EDB-BE30-BB26188A11AD} = {7CB48037-B8E6-4D89-8788-E145958CE8CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7243B696-0018-41B8-8842-74C7046CB05C}
