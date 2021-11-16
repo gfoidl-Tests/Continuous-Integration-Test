@@ -2,20 +2,21 @@
 
     <PropertyGroup>
         <VersionMajor Condition="'$(VersionMajor)' == ''">0</VersionMajor>
-        <VersionMinor Condition="'$(VersionMinor)' == ''">3</VersionMinor>
+        <VersionMinor Condition="'$(VersionMinor)' == ''">4</VersionMinor>
         <VersionPatch Condition="'$(VersionPatch)' == ''">0</VersionPatch>
-        <BuildNumber Condition="'$(BuildNumber)' == ''">57</BuildNumber>
+        <BuildNumber Condition="'$(BuildNumber)' == ''">62</BuildNumber>
         <VersionSuffix Condition="'$(Configuration)' == 'Debug' and '$(VersionSuffix)' == ''">dev</VersionSuffix>
         <Authors>gfoidl</Authors>
         <Company>Foidl Günther</Company>
         <Product>Continuous Integration Test</Product>
-        <Copyright>Copyright © Foidl Günther 2017-2020</Copyright>
+        <Copyright>Copyright © Foidl Günther 2017-2021</Copyright>
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
     </PropertyGroup>
 
     <PropertyGroup>
-        <StandardTfms>net5.0</StandardTfms>
+        <StandardTfms>net6.0</StandardTfms>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>

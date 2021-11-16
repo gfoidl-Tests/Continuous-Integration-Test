@@ -7,6 +7,7 @@ using NUnit.Framework;
 using System.Text.Json;
 #endif
 
+// Here I'll keep the block scoped namespace to keep a bit of history ;-)
 namespace Calculator.Core.Tests.CalculatorTests
 {
     [TestFixture]
@@ -22,7 +23,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             int first  = 3;
             int second = 4;
 
-            var sut = new Calculator();
+            Calculator sut = new();
 
             // Act:
             TestContext.Progress.WriteLine("Act");
@@ -39,7 +40,7 @@ namespace Calculator.Core.Tests.CalculatorTests
             int first  = 42;
             int second = 0;
 
-            var sut = new Calculator();
+            Calculator sut = new();
 
             int actual = sut.Add(first, second);
 
