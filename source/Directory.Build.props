@@ -3,7 +3,40 @@
     <Import Project="../Directory.Build.props" />
 
     <PropertyGroup>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/gfoidl-Tests/Continuous-Integration-Test</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/gfoidl-Tests/Continuous-Integration-Test</RepositoryUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(ContinuousIntegrationBuild)' == ''">
         <DebugType>embedded</DebugType>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(ContinuousIntegrationBuild)' == 'true'">
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)..\ReadMe.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(ContinuousIntegrationBuild)' == 'true'">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
+    </ItemGroup>
 
 </Project>

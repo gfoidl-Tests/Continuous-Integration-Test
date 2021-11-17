@@ -4,9 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PropertyGroup>
+        <Description>A test-project to play with CI/CD and project-setup in general.</Description>
     </PropertyGroup>
 
 </Project>
