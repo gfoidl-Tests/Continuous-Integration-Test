@@ -94,6 +94,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{A048E82E-A930-4471-81AE-B6F9E6C7D818}"
 	ProjectSection(SolutionItems) = preProject
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
+		.azure\pipelines\outer-loop.yml = .azure\pipelines\outer-loop.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{62FAA568-AD57-4479-A1A7-92C2E0876DE0}"
