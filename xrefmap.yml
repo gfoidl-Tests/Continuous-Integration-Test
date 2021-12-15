@@ -13,6 +13,22 @@ references:
   commentId: T:Calculator.Core.Calculator
   fullName: Calculator.Core.Calculator
   nameWithType: Calculator
+- uid: Calculator.Core.Calculator.#ctor(Microsoft.Extensions.Logging.ILogger{Calculator.Core.Calculator})
+  name: Calculator(ILogger<Calculator>)
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator__ctor_Microsoft_Extensions_Logging_ILogger_Calculator_Core_Calculator__
+  commentId: M:Calculator.Core.Calculator.#ctor(Microsoft.Extensions.Logging.ILogger{Calculator.Core.Calculator})
+  name.vb: Calculator(ILogger(Of Calculator))
+  fullName: Calculator.Core.Calculator.Calculator(Microsoft.Extensions.Logging.ILogger<Calculator.Core.Calculator>)
+  fullName.vb: Calculator.Core.Calculator.Calculator(Microsoft.Extensions.Logging.ILogger(Of Calculator.Core.Calculator))
+  nameWithType: Calculator.Calculator(ILogger<Calculator>)
+  nameWithType.vb: Calculator.Calculator(ILogger(Of Calculator))
+- uid: Calculator.Core.Calculator.#ctor*
+  name: Calculator
+  href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator__ctor_
+  commentId: Overload:Calculator.Core.Calculator.#ctor
+  isSpec: "True"
+  fullName: Calculator.Core.Calculator.Calculator
+  nameWithType: Calculator.Calculator
 - uid: Calculator.Core.Calculator.Add(System.Int32,System.Int32)
   name: Add(Int32, Int32)
   href: api/Calculator.Core.Calculator.html#Calculator_Core_Calculator_Add_System_Int32_System_Int32_
