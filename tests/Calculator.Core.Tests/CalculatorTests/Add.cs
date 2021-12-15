@@ -16,7 +16,7 @@ namespace Calculator.Core.Tests.CalculatorTests
         [Test]
         public void Summands_given___correct_result()
         {
-            TestContext.WriteLine("Sending some messages to Progess for demo purposes");
+            TestContext.WriteLine("Sending some messages to Progess for demo purposes. This message is written by TestContext.WriteLine.");
 
             // Arrange
             TestContext.Progress.WriteLine("Arrange");
