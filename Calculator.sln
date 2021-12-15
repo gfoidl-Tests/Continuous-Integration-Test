@@ -93,6 +93,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{EBC95C9C-AEF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{A048E82E-A930-4471-81AE-B6F9E6C7D818}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\ci-deploy.yml = .azure\pipelines\ci-deploy.yml
 		.azure\pipelines\ci-docs.yml = .azure\pipelines\ci-docs.yml
 		.azure\pipelines\ci-outer-loop.yml = .azure\pipelines\ci-outer-loop.yml
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
