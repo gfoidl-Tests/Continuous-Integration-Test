@@ -7,4 +7,13 @@
         <Message Importance="high" Text=" " Condition="'$(Configuration)' == 'Debug'" />
     </Target>
 
+    <!-- https://stackoverflow.com/a/45248069/347870 -->
+    <Target Name="SetSourceRevisionId" BeforeTargets="InitializeSourceControlInformation">
+        <Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8"
+              ConsoleToMSBuild="True"
+              IgnoreExitCode="False">
+            <Output PropertyName="SourceRevisionId" TaskParameter="ConsoleOutput" />
+        </Exec>
+    </Target>
+
 </Project>
