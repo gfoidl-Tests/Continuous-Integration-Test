@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using Moq;
+using NSubstitute;
 using NUnit.Framework;
 
 [DebuggerNonUserCode]
@@ -14,7 +14,7 @@ public abstract class AbstractLogger<T> : ILogger<T>
     public List<LogMessage> LogMessages { get; } = new List<LogMessage>();
 #endif
     //---------------------------------------------------------------------
-    public IDisposable BeginScope<TState>(TState state) => Mock.Of<IDisposable>();
+    public IDisposable BeginScope<TState>(TState state) => Substitute.For<IDisposable>();
     public bool IsEnabled(LogLevel logLevel) => true;
     //---------------------------------------------------------------------
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
